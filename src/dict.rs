@@ -1,28 +1,28 @@
-pub fn filter(words: Vec<String>) {
-    let dict_iter = words.iter();
+pub fn filter(words: Vec<String>) -> Vec<String> {
+    let dict_iter = words.into_iter();
 
-    for word in dict_iter
+    dict_iter
         // длина слова
         .filter(|x| x.len() == 10)
-        //.filter(|x| x.contains("с"))
-        //.filter(|x| x.contains("т"))
-        .filter(|x| x.get(0..2) != Some(&String::from("с")))
-        .filter(|x| x.get(0..2) != Some(&String::from("в")))
-        .filter(|x| x.get(0..2) != Some(&String::from("ч")))
-        .filter(|x| x.get(0..2) != Some(&String::from("ж")))
-        .filter(|x| x.get(0..2) != Some(&String::from("ш")))
-        .filter(|x| x.get(2..4) == Some(&String::from("е")))
-        .filter(|x| x.get(4..6) == Some(&String::from("с")))
-        .filter(|x| x.get(6..8) == Some(&String::from("т")))
-        .filter(|x| !x.contains("а"))
-        .filter(|x| !x.contains("л"))
-        .filter(|x| !x.contains("ю"))
-    //.filter(|x| !x.contains("ь"))
-    //.filter(|x| !x.contains("п"))
-    //.filter(|x| !x.contains("р"))
-    //.filter(|x| !x.contains("и"))
-    //.filter(|x| !x.contains("ц"))
-    {
-        println!("{}", word);
-    }
+        //
+        .filter(|x| x.contains("а"))
+        //
+        .filter(|x| x.get(0..2) == Some(&String::from("з")))
+        .filter(|x| x.get(6..8) == Some(&String::from("о")))
+        .filter(|x| x.get(8..10) == Some(&String::from("р")))
+        //
+        .filter(|x| !x.contains("с"))
+        .filter(|x| !x.contains("в"))
+        .filter(|x| !x.contains("и"))
+        .filter(|x| !x.contains("т"))
+        .filter(|x| !x.contains("я"))
+        .filter(|x| !x.contains("г"))
+        .filter(|x| !x.contains("у"))
+        .filter(|x| !x.contains("н"))
+        .filter(|x| !x.contains("к"))
+        .filter(|x| !x.contains("е"))
+        .filter(|x| !x.contains("б"))
+        .filter(|x| !x.contains("д"))
+        //
+        .collect()
 }
