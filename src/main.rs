@@ -1,28 +1,16 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    path::Path,
-};
-
-fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
-    let file = File::open(filename).expect("no such file");
-    let buf = BufReader::new(file);
-    buf.lines()
-        .map(|l| l.expect("Could not parse line"))
-        .collect()
-}
+use std::process::exit;
+use vbukv::{args::Args, dict, file};
 
 fn main() {
-    let dict = lines_from_file("slovar.txt");
+    let args = Args::build().unwrap_or_else(|err| {
+        println!("Возникла ошибка при разборе аргументов: {err}");
+        exit(1)
+    });
+    //dbg!(&args);
 
-    let dict_iter = dict.iter();
+    let words = file::words_from_file(&args.file);
 
-    for slovo in dict_iter
-        .filter(|x| x.len() == 10)
-        .filter(|x| x.get(6..8) == Some(&String::from("а")))
-        .filter(|x| x.contains("в"))
-        .filter(|x| x.contains("п"))
-    {
-        println!("{}", slovo);
-    }
+    println!("Словарь: {} ({} слов)", args.file, words.len());
+
+    dict::filter(words);
 }
