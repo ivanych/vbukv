@@ -9,8 +9,12 @@ fn main() {
     //dbg!(&args);
 
     let words = file::words_from_file(&args.file);
-
     println!("Словарь: {} ({} слов)", args.file, words.len());
 
-    dict::filter(words);
+    let assumptions = dict::filter(words);
+    println!("Предположения ({}):", assumptions.len());
+
+    for assumption in assumptions {
+        println!("{}", assumption);
+    }
 }
