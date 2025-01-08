@@ -1,28 +1,75 @@
 pub fn filter(words: Vec<String>) -> Vec<String> {
+    // Правила
+    let rules = [
+        (String::from("п"), String::from("1")),
+        (String::from("а"), String::from("*")),
+        (String::from("А"), String::from("2")),
+        (String::from("С"), String::from("*")),
+        (String::from("Т"), String::from("*")),
+        (String::from("А"), String::from("5")),
+        (String::from("о"), String::from("2")),
+        (String::from("В"), String::from("*")),
+        (String::from("а"), String::from("4")),
+        (String::from("Р"), String::from("*")),
+
+    ];
+    dbg!(&rules);
+
     let dict_iter = words.into_iter();
 
-    dict_iter
-        // длина слова
-        .filter(|x| x.len() == 10)
-        //
-        .filter(|x| x.contains("а"))
-        //
-        .filter(|x| x.get(0..2) == Some(&String::from("з")))
-        .filter(|x| x.get(6..8) == Some(&String::from("о")))
-        .filter(|x| x.get(8..10) == Some(&String::from("р")))
-        //
-        .filter(|x| !x.contains("с"))
-        .filter(|x| !x.contains("в"))
-        .filter(|x| !x.contains("и"))
-        .filter(|x| !x.contains("т"))
-        .filter(|x| !x.contains("я"))
-        .filter(|x| !x.contains("г"))
-        .filter(|x| !x.contains("у"))
-        .filter(|x| !x.contains("н"))
-        .filter(|x| !x.contains("к"))
-        .filter(|x| !x.contains("е"))
-        .filter(|x| !x.contains("б"))
-        .filter(|x| !x.contains("д"))
-        //
-        .collect()
+    let ass = dict_iter
+        .clone()
+        .filter(|w| {
+            //dbg!(&w);
+
+            // Длина
+            if w.len() != 10 {
+                return false;
+            }
+
+            rules.iter().all(|rule| {
+                //dbg!(rule);
+
+                let (letter, position) = rule;
+                let position = position.parse::<usize>().ok();
+                dbg!(letter, position);
+
+                // любое место
+                if position.is_none() {
+                    let is_contain =
+                        w.contains(letter.to_string().as_str().to_lowercase().as_str());
+
+                    if letter.chars().all(char::is_lowercase) {
+                        is_contain
+                    } else {
+                        !is_contain
+                    }
+                }
+                //  указанное место
+                else if position.is_some() {
+                    let end = position.unwrap() * 2;
+                    let start = end - 2;
+                    //dbg!(start, end);
+
+                    let symbol = w.get(start..end);
+                    //dbg!(symbol);
+
+                    let is_match =
+                        symbol == Some(letter.to_string().as_str().to_lowercase().as_str());
+
+                    if letter.chars().all(char::is_lowercase) {
+                        is_match
+                    } else {
+                        !is_match
+                    }
+                }
+                // все прочие случаи
+                else {
+                    false
+                }
+            })
+        })
+        .collect::<Vec<_>>();
+
+    ass
 }
