@@ -12,9 +12,13 @@ fn main() {
     println!("Словарь: {} ({} слов)", args.file, words.len());
 
     let assumptions = dict::filter(words);
-    println!("Предположения ({}):", assumptions.len());
 
-    for assumption in assumptions {
+    println!("---------------------------------");
+
+    for assumption in &assumptions {
         println!("{}", assumption);
     }
+
+    println!("---------------------------------");
+    println!("Найдено предположений: {}", assumptions.len());
 }
