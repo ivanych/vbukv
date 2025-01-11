@@ -1,28 +1,44 @@
-pub fn filter(words: Vec<String>) -> Vec<String> {
-    let dict_iter = words.into_iter();
+use crate::rule::Rule;
 
-    dict_iter
-        // длина слова
-        .filter(|x| x.len() == 10)
-        //
-        .filter(|x| x.contains("а"))
-        //
-        .filter(|x| x.get(0..2) == Some(&String::from("з")))
-        .filter(|x| x.get(6..8) == Some(&String::from("о")))
-        .filter(|x| x.get(8..10) == Some(&String::from("р")))
-        //
-        .filter(|x| !x.contains("с"))
-        .filter(|x| !x.contains("в"))
-        .filter(|x| !x.contains("и"))
-        .filter(|x| !x.contains("т"))
-        .filter(|x| !x.contains("я"))
-        .filter(|x| !x.contains("г"))
-        .filter(|x| !x.contains("у"))
-        .filter(|x| !x.contains("н"))
-        .filter(|x| !x.contains("к"))
-        .filter(|x| !x.contains("е"))
-        .filter(|x| !x.contains("б"))
-        .filter(|x| !x.contains("д"))
-        //
+const PRESENCE: &str = "+";
+
+pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String> {
+    words
+        .into_iter() // почему тут into_iter? надо разобраться...
+        // Берём только нужные слова
+        .filter(|word| {
+            //dbg!(&word);
+
+            // Длина
+            if word.chars().count() != length {
+                return false;
+            }
+
+            rules
+                .iter()
+                // Все правила должны выполниться
+                .all(|rule| {
+                    let is_find = find_letter(word, rule);
+
+                    if rule.condition.as_str() == PRESENCE {
+                        is_find
+                    } else {
+                        !is_find
+                    }
+                })
+        })
         .collect()
+}
+
+fn find_letter(word: &String, rule: &Rule) -> bool {
+    match rule.position {
+        None => word.contains(rule.letter_lc().as_str()),
+        Some(_) => position_symbol(word, &rule.position) == rule.letter_lc(),
+    }
+}
+
+fn position_symbol(word: &String, position: &Option<usize>) -> String {
+    let index = position.unwrap() - 1;
+
+    word.chars().nth(index).unwrap().to_string()
 }
