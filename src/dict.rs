@@ -37,7 +37,7 @@ fn find_letter(word: &String, rule: &Rule) -> bool {
     }
 }
 
-fn position_symbol(word: &String, position: &Option<usize>) -> String {
+pub fn position_symbol(word: &String, position: &Option<usize>) -> String {
     let index = position.unwrap() - 1;
 
     word.chars().nth(index).unwrap().to_string()
