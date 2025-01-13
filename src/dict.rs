@@ -43,6 +43,7 @@ fn position_symbol(word: &String, position: &Option<usize>) -> String {
     word.chars().nth(index).unwrap().to_string()
 }
 
+#[cfg(test)]
 mod tests {
     use super::*;
 
@@ -65,8 +66,4 @@ mod tests {
         )
     }
 
-    #[test]
-    fn another() {
-        panic!("упс!")
-    }
 }
