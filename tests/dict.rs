@@ -2,20 +2,77 @@ use vbukv::dict;
 use vbukv::rule::Rule;
 
 #[test]
-fn position_symbol_test() {
-    let word = "паста".to_string();
-    let rule = Rule {
-        letter: String::from("а"),
-        condition: String::from("!"),
-        position: Some(2),
-    };
+fn filter_test_1() {
+    let words = vec![
+        String::from("паста"),
+        String::from("стопа"),
+        String::from("кнопка"),
+        String::from("шпонка"),
+        String::from("трактор"),
+        String::from("масштаб"),
+        String::from("концепция"),
+        String::from("постройка"),
+        String::from("министерство"),
+    ];
 
-    let ps = dict::position_symbol(&word, &rule.position);
+    let length: usize = 5;
 
-    assert_eq!(
-        ps,
-        rule.letter_lc(),
-        "В слове 'слово' неправильно определён символ на позиции {}",
-        rule.position.unwrap()
-    )
+    let rules = vec![
+        Rule {
+            letter: String::from("с"),
+            condition: String::from("+"),
+            position: None,
+        },
+        Rule {
+            letter: String::from("о"),
+            condition: String::from("!"),
+            position: None,
+        },
+    ];
+
+    let assumptions = dict::filter(words, length, rules);
+
+    println!("{:?}", assumptions);
+
+    let word1 = "паста".to_string();
+
+    assert!(assumptions.contains(&word1));
+}
+
+#[test]
+fn filter_test_2() {
+    let words = vec![
+        String::from("паста"),
+        String::from("стопа"),
+        String::from("кнопка"),
+        String::from("шпонка"),
+        String::from("трактор"),
+        String::from("масштаб"),
+        String::from("концепция"),
+        String::from("постройка"),
+        String::from("министерство"),
+    ];
+
+    let length: usize = 9;
+
+    let rules = vec![
+        Rule {
+            letter: String::from("о"),
+            condition: String::from("+"),
+            position: Some(2),
+        },
+        Rule {
+            letter: String::from("ц"),
+            condition: String::from("!"),
+            position: Some(4),
+        },
+    ];
+
+    let assumptions = dict::filter(words, length, rules);
+
+    println!("{:?}", assumptions);
+
+    let word1 = "постройка".to_string();
+
+    assert!(assumptions.contains(&word1));
 }
