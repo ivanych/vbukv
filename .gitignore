@@ -1,6 +1,6 @@
 /target
 
 /.coverage
-.cargo-test.profraw
+.cargo-test-*.profraw
 
 slovar.txt
