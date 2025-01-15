@@ -1,4 +1,3 @@
-use std::env;
 
 #[derive(Debug)]
 pub struct Args {
@@ -6,10 +5,7 @@ pub struct Args {
 }
 
 impl Args {
-    pub fn build() -> Result<Args, &'static str> {
-        // Прочитать все аргументы в вектор
-        let args: Vec<String> = env::args().collect();
-        //dbg!(&args);
+    pub fn build(args: &Vec<String>) -> Result<Args, &'static str> {
 
         // Проверки
         // Нужен как минимум один аргумент (помимо названия самой программы) — файл словаря

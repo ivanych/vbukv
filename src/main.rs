@@ -1,8 +1,13 @@
+use std::env;
 use std::process::exit;
 use vbukv::{args::Args, dict, file, rule::Rule};
 
 fn main() {
-    let args = Args::build().unwrap_or_else(|err| {
+
+    // Прочитать аргументы командной строки в вектор
+    let args: Vec<String> = env::args().collect();
+
+    let args = Args::build(&args).unwrap_or_else(|err| {
         println!("Возникла ошибка при разборе аргументов: {err}");
         exit(1)
     });
