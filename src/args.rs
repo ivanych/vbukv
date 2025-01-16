@@ -1,4 +1,3 @@
-
 #[derive(Debug)]
 pub struct Args {
     pub file: String,
@@ -6,7 +5,6 @@ pub struct Args {
 
 impl Args {
     pub fn build(args: &Vec<String>) -> Result<Args, &'static str> {
-
         // Проверки
         // Нужен как минимум один аргумент (помимо названия самой программы) — файл словаря
         if args.len() < 2 {
@@ -18,3 +16,6 @@ impl Args {
         })
     }
 }
+
+#[cfg(test)]
+mod tests;

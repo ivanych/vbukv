@@ -3,7 +3,6 @@ use std::process::exit;
 use vbukv::{args::Args, dict, file, rule::Rule};
 
 fn main() {
-
     // Прочитать аргументы командной строки в вектор
     let args: Vec<String> = env::args().collect();
 
