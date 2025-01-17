@@ -22,17 +22,17 @@ impl Args {
         let rules = vec![
             Rule {
                 letter: String::from("п"),
-                condition: String::from("!"),
+                condition: false,
                 position: None,
             },
             Rule {
                 letter: String::from("А"),
-                condition: String::from("+"),
+                condition: true,
                 position: Some(1),
             },
             Rule {
                 letter: String::from("к"),
-                condition: String::from("+"),
+                condition: true,
                 position: Some(3),
             },
         ];

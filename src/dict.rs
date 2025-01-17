@@ -3,8 +3,6 @@ mod tests;
 
 use crate::rule::Rule;
 
-const PRESENCE: &str = "+";
-
 pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String> {
     words
         .into_iter() // почему тут into_iter? надо разобраться...
@@ -23,7 +21,7 @@ pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String
                 .all(|rule| {
                     let is_find = find_letter(word, rule);
 
-                    if rule.condition.as_str() == PRESENCE {
+                    if rule.condition {
                         is_find
                     } else {
                         !is_find

@@ -5,7 +5,7 @@ fn find_letter_test_true1() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: String::from("т"),
-        condition: String::from("+"),
+        condition: true,
         position: None,
     };
 
@@ -23,7 +23,7 @@ fn find_letter_test_true2() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: String::from("п"),
-        condition: String::from("+"),
+        condition: true,
         position: Some(1),
     };
 
@@ -42,7 +42,7 @@ fn find_letter_test_false1() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: String::from("б"),
-        condition: String::from("+"),
+        condition: true,
         position: None,
     };
 
@@ -61,7 +61,7 @@ fn find_letter_test_false2() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: String::from("б"),
-        condition: String::from("+"),
+        condition: true,
         position: Some(1),
     };
 
@@ -79,7 +79,7 @@ fn position_symbol_test_true() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: String::from("а"),
-        condition: String::from("!"),
+        condition: false,
         position: Some(2),
     };
 
@@ -100,7 +100,7 @@ fn position_symbol_test_false() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: String::from("а"),
-        condition: String::from("!"),
+        condition: false,
         position: Some(3),
     };
 
