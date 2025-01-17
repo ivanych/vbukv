@@ -1,7 +1,7 @@
 #[derive(Debug)]
 pub struct Rule {
     pub letter: String,
-    pub condition: String,
+    pub condition: bool,
     pub position: Option<usize>,
 }
 
