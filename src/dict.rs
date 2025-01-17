@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod tests;
+
 use crate::rule::Rule;
 
 const PRESENCE: &str = "+";

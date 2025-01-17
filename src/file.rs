@@ -11,3 +11,6 @@ pub fn words_from_file(filename: impl AsRef<Path>) -> Vec<String> {
         .map(|l| l.expect("Could not parse line"))
         .collect()
 }
+
+#[cfg(test)]
+mod tests;
