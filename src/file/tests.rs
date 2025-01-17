@@ -8,7 +8,7 @@ fn words_from_file_test_success() {
 
     assert_eq!(
         words.len(),
-        157133,
+        157149,
         "Из словаря прочитано не столько слов, сколько ожидалось"
     );
 
