@@ -4,7 +4,7 @@ use super::*;
 fn find_letter_test_true1() {
     let word = "паста".to_string();
     let rule = Rule {
-        letter: String::from("т"),
+        letter: 'т',
         condition: true,
         position: None,
     };
@@ -22,7 +22,7 @@ fn find_letter_test_true1() {
 fn find_letter_test_true2() {
     let word = "паста".to_string();
     let rule = Rule {
-        letter: String::from("п"),
+        letter: 'п',
         condition: true,
         position: Some(1),
     };
@@ -41,7 +41,7 @@ fn find_letter_test_true2() {
 fn find_letter_test_false1() {
     let word = "паста".to_string();
     let rule = Rule {
-        letter: String::from("б"),
+        letter: 'б',
         condition: true,
         position: None,
     };
@@ -60,7 +60,7 @@ fn find_letter_test_false1() {
 fn find_letter_test_false2() {
     let word = "паста".to_string();
     let rule = Rule {
-        letter: String::from("б"),
+        letter: 'б',
         condition: true,
         position: Some(1),
     };
@@ -78,7 +78,7 @@ fn find_letter_test_false2() {
 fn position_symbol_test_true() {
     let word = "паста".to_string();
     let rule = Rule {
-        letter: String::from("а"),
+        letter: 'а',
         condition: false,
         position: Some(2),
     };
@@ -87,7 +87,7 @@ fn position_symbol_test_true() {
 
     assert_eq!(
         ps,
-        rule.letter_lc(),
+        rule.letter,
         "В слове '{}' неправильно определён символ на позиции {}",
         word,
         rule.position.unwrap(),
@@ -99,7 +99,7 @@ fn position_symbol_test_true() {
 fn position_symbol_test_false() {
     let word = "паста".to_string();
     let rule = Rule {
-        letter: String::from("а"),
+        letter: 'а',
         condition: false,
         position: Some(3),
     };
@@ -108,7 +108,7 @@ fn position_symbol_test_false() {
 
     assert_eq!(
         ps,
-        rule.letter_lc(),
+        rule.letter,
         "В слове '{}' неправильно определён символ на позиции {}",
         word,
         rule.position.unwrap(),

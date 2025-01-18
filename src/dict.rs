@@ -33,13 +33,13 @@ pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String
 
 fn find_letter(word: &String, rule: &Rule) -> bool {
     match rule.position {
-        None => word.contains(rule.letter_lc().as_str()),
-        Some(_) => position_symbol(word, &rule.position) == rule.letter_lc(),
+        None => word.contains(rule.letter),
+        Some(_) => position_symbol(word, &rule.position) == rule.letter,
     }
 }
 
-fn position_symbol(word: &String, position: &Option<usize>) -> String {
+fn position_symbol(word: &String, position: &Option<usize>) -> char {
     let index = position.unwrap() - 1;
 
-    word.chars().nth(index).unwrap().to_string()
+    word.chars().nth(index).unwrap()
 }

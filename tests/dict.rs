@@ -19,12 +19,12 @@ fn filter_test_1() {
 
     let rules = vec![
         Rule {
-            letter: String::from("с"),
+            letter: 'с',
             condition: true,
             position: None,
         },
         Rule {
-            letter: String::from("о"),
+            letter: 'о',
             condition: false,
             position: None,
         },
@@ -57,12 +57,12 @@ fn filter_test_2() {
 
     let rules = vec![
         Rule {
-            letter: String::from("о"),
+            letter: 'о',
             condition: true,
             position: Some(2),
         },
         Rule {
-            letter: String::from("ц"),
+            letter: 'ц',
             condition: false,
             position: Some(4),
         },
