@@ -1,16 +1,14 @@
-use std::env;
-use std::process::exit;
+//use std::env;
+use clap::Parser;
+//use std::process::exit;
 use vbukv::{args::Args, dict, file};
 
 fn main() {
     // Прочитать аргументы командной строки в вектор
-    let args: Vec<String> = env::args().collect();
+    //let args: Vec<String> = env::args().collect();
 
-    // Раcпарсить аргументы
-    let args = Args::build(&args).unwrap_or_else(|err| {
-        println!("Возникла ошибка при разборе аргументов: {err}");
-        exit(1)
-    });
+    let args = Args::parse();
+    dbg!(&args);
 
     // Прочитать слова из файла
     let words = file::words_from_file(&args.file);
