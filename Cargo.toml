@@ -1,6 +1,11 @@
 [package]
 name = "vbukv"
 version = "0.1.0"
+description = "Угадывалка слов по буквам"
+authors = ["Mikhail Ivanov <m.ivanych@gmail.com>"]
+
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.5.26", features = ["derive"] }
+fancy-regex = "0.14.0"
