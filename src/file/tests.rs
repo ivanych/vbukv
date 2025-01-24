@@ -2,6 +2,7 @@ use super::*;
 
 #[test]
 fn words_from_file_test_success() {
+    // TODO надо сделать тестовый словарь
     let filename = "slovar.txt".to_string();
 
     let words = words_from_file(filename);
