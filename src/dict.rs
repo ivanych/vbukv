@@ -1,6 +1,3 @@
-#[cfg(test)]
-mod tests;
-
 use crate::rule::Rule;
 
 pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String> {
@@ -29,6 +26,7 @@ pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String
         .collect()
 }
 
+// TODO тут не нужно правило целиком, надо принимать только букву и позицию
 fn is_present(word: &String, rule: &Rule) -> bool {
     match rule.position {
         None => word.contains(rule.letter),
@@ -43,6 +41,7 @@ fn is_absent(word: &String, rule: &Rule) -> bool {
     }
 }
 
+// TODO тут не нужно правило целиком, надо принимать только букву и позицию
 fn is_inner(word: &String, rule: &Rule) -> bool {
     // буква должно быть на указанном месте
     position_symbol(word, &rule.position) == rule.letter
@@ -72,3 +71,6 @@ fn word_without_position(word: &String, position: &Option<usize>) -> String {
         .map(|(_, c)| c)
         .collect()
 }
+
+#[cfg(test)]
+mod tests;
