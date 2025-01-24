@@ -3,6 +3,7 @@ use fancy_regex::Regex;
 #[derive(Debug, Clone)]
 pub struct Rule {
     pub letter: char,
+    // TODO тут надо сделать enum вместо char
     pub condition: char,
     pub position: Option<usize>,
 }
