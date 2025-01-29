@@ -2,13 +2,15 @@ use super::*;
 
 #[test]
 fn words_from_file_test_success() {
-    let filename = "slovar.txt".to_string();
+    // TODO Вроде нет стандартного места для размещения такиех файлов...
+    // Размещу рядом с тестом.
+    let filename = "test_slovar.txt".to_string();
 
     let words = words_from_file(filename);
 
     assert_eq!(
         words.len(),
-        157149,
+        9,
         "Из словаря прочитано не столько слов, сколько ожидалось"
     );
 

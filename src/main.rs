@@ -1,23 +1,24 @@
-use std::env;
 use std::process::exit;
-use vbukv::{args::Args, dict, file};
+// TODO непонятно, зачем здесь импорт clap-а, но без него не работает. Надо разобраться.
+use clap::Parser;
+use clap_markdown;
+use vbukv;
+use vbukv::args::Args;
 
 fn main() {
-    // Прочитать аргументы командной строки в вектор
-    let args: Vec<String> = env::args().collect();
+    // TODO Эту конструкцию надо бы засунуть в функцию vbukv::args,
+    // чтобы все вызовы здесь были из библиотеки vbukv, для единообразия.
+    // Но в библиотеке эту функцию нужно тестировать, а я пока не знаю,
+    // как протестировать функцию, которая читает аргументы командной строки.
+    let args = Args::parse();
+    //dbg!(&args);
 
-    // Раcпарсить аргументы
-    let args = Args::build(&args).unwrap_or_else(|err| {
-        println!("Возникла ошибка при разборе аргументов: {err}");
-        exit(1)
-    });
+    if args.markdown_help {
+        clap_markdown::print_help_markdown::<Args>();
+        exit(0);
+    }
 
-    // Прочитать слова из файла
-    let words = file::words_from_file(&args.file);
-    println!("Словарь: {} ({} слов)", args.file, words.len());
-
-    // Найти предположения
-    let assumptions = dict::filter(words, args.length, args.rules);
+    let assumptions = vbukv::assumptions(&args);
 
     println!("Предположения:");
     println!("---------------------------------");
