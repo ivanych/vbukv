@@ -8,6 +8,8 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  # Disable incremental compilation for faster from-scratch builds
+  CARGO_INCREMENTAL: 0
 
 jobs:
   build:
@@ -15,8 +17,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Build
-      run: cargo build --verbose
-    - name: Run tests
+      run: cargo build --release
+    - name: Test
       run: cargo test --verbose
+    - name: Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        path: target/release/vbukv
+        
