@@ -1,4 +1,4 @@
-use crate::rule::Rule;
+use crate::rule::{Cond, Rule};
 
 pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<String> {
     words
@@ -15,12 +15,11 @@ pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<Strin
             rules
                 .iter()
                 // Все правила должны выполниться
-                .all(|rule| match rule.condition.to_string().as_str() {
-                    "+" => is_present(word, rule),
-                    "-" => is_absent(word, rule),
-                    "=" => is_inner(word, rule),
-                    "*" => is_outer(word, rule),
-                    _ => false,
+                .all(|rule| match rule.condition {
+                    Cond::Plus => is_present(word, rule),
+                    Cond::Minus => is_absent(word, rule),
+                    Cond::Equals => is_inner(word, rule),
+                    Cond::Asterisk => is_outer(word, rule),
                 })
         })
         .collect()

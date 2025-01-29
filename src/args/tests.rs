@@ -1,5 +1,5 @@
 use super::*;
-use crate::rule::Rule;
+use crate::rule::{Cond, Rule};
 
 #[test]
 fn test_args() {
@@ -8,9 +8,10 @@ fn test_args() {
         file: "test_slovar.txt".to_string(),
         rules: vec![Rule {
             letter: 'с',
-            condition: '+',
+            condition: Cond::Plus,
             position: None,
         }],
+        markdown_help: false,
     };
 
     assert_eq!(args.length, 5);

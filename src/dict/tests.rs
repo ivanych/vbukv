@@ -1,4 +1,5 @@
 use super::*;
+use crate::rule::Cond;
 
 #[test]
 fn test_filter_plus() {
@@ -19,12 +20,12 @@ fn test_filter_plus() {
     let rules = vec![
         Rule {
             letter: 'с',
-            condition: '+',
+            condition: Cond::Plus,
             position: None,
         },
         Rule {
             letter: 'о',
-            condition: '+',
+            condition: Cond::Plus,
             position: Some(3),
         },
     ];
@@ -62,12 +63,12 @@ fn test_filter_minus() {
     let rules = vec![
         Rule {
             letter: 'с',
-            condition: '-',
+            condition: Cond::Minus,
             position: None,
         },
         Rule {
             letter: 'н',
-            condition: '-',
+            condition: Cond::Minus,
             position: Some(4),
         },
     ];
@@ -104,7 +105,7 @@ fn test_filter_equals() {
 
     let rules = vec![Rule {
         letter: 'т',
-        condition: '=',
+        condition: Cond::Equals,
         position: Some(5),
     }];
 
@@ -140,7 +141,7 @@ fn test_filter_asterisk() {
 
     let rules = vec![Rule {
         letter: 'к',
-        condition: '*',
+        condition: Cond::Asterisk,
         position: Some(8),
     }];
 
@@ -164,7 +165,7 @@ fn test_is_present_true() {
 
     let rule = Rule {
         letter: 'т',
-        condition: '+',
+        condition: Cond::Plus,
         position: None,
     };
     let is_true = is_present(&word, &rule);
@@ -172,7 +173,7 @@ fn test_is_present_true() {
 
     let rule = Rule {
         letter: 'т',
-        condition: '+',
+        condition: Cond::Plus,
         position: Some(4),
     };
     let is_true = is_present(&word, &rule);
@@ -185,7 +186,7 @@ fn test_is_present_false() {
 
     let rule = Rule {
         letter: 'г',
-        condition: '+',
+        condition: Cond::Plus,
         position: None,
     };
     let is_true = is_present(&word, &rule);
@@ -193,7 +194,7 @@ fn test_is_present_false() {
 
     let rule = Rule {
         letter: 'т',
-        condition: '+',
+        condition: Cond::Plus,
         position: Some(3),
     };
     let is_true = is_present(&word, &rule);
@@ -206,7 +207,7 @@ fn test_is_absent_true() {
 
     let rule = Rule {
         letter: 'г',
-        condition: '-',
+        condition: Cond::Minus,
         position: None,
     };
     let is_true = is_absent(&word, &rule);
@@ -214,7 +215,7 @@ fn test_is_absent_true() {
 
     let rule = Rule {
         letter: 'т',
-        condition: '-',
+        condition: Cond::Minus,
         position: Some(5),
     };
     let is_true = is_absent(&word, &rule);
@@ -227,7 +228,7 @@ fn test_is_absent_false() {
 
     let rule = Rule {
         letter: 'т',
-        condition: '-',
+        condition: Cond::Minus,
         position: None,
     };
     let is_true = is_absent(&word, &rule);
@@ -235,7 +236,7 @@ fn test_is_absent_false() {
 
     let rule = Rule {
         letter: 'т',
-        condition: '-',
+        condition: Cond::Minus,
         position: Some(4),
     };
     let is_true = is_absent(&word, &rule);
@@ -247,7 +248,7 @@ fn test_is_inner_true() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: 'т',
-        condition: '=',
+        condition: Cond::Equals,
         position: Some(4),
     };
 
@@ -261,7 +262,7 @@ fn test_is_inner_false() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: 'а',
-        condition: '=',
+        condition: Cond::Equals,
         position: Some(5),
     };
 
@@ -275,7 +276,7 @@ fn test_is_inner_false_2() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: 'г',
-        condition: '=',
+        condition: Cond::Equals,
         position: Some(1),
     };
 
@@ -289,7 +290,7 @@ fn test_is_outer_true() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: 'т',
-        condition: '*',
+        condition: Cond::Plus,
         position: Some(5),
     };
 
@@ -303,7 +304,7 @@ fn test_is_outer_false() {
     let word = "паста".to_string();
     let rule = Rule {
         letter: 'а',
-        condition: '*',
+        condition: Cond::Asterisk,
         position: Some(5),
     };
 
