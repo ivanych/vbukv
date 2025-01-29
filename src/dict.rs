@@ -1,6 +1,6 @@
 use crate::rule::Rule;
 
-pub fn filter(words: Vec<String>, length: usize, rules: Vec<Rule>) -> Vec<String> {
+pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<String> {
     words
         .into_iter() // почему тут into_iter? надо разобраться...
         // Берём только нужные слова

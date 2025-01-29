@@ -1,5 +1,4 @@
 use super::*;
-use crate::dict;
 
 #[test]
 fn test_filter_plus() {
@@ -30,9 +29,9 @@ fn test_filter_plus() {
         },
     ];
 
-    let assumptions = dict::filter(words, length, rules);
+    let assumptions = filter(words, length, &rules);
 
-    println!("{:?}", assumptions);
+    //dbg!(&assumptions);
 
     let word1 = "стопа".to_string();
 
@@ -73,9 +72,9 @@ fn test_filter_minus() {
         },
     ];
 
-    let assumptions = dict::filter(words, length, rules);
+    let assumptions = filter(words, length, &rules);
 
-    println!("{:?}", assumptions);
+    //dbg!(&assumptions);
 
     let word1 = "кнопка".to_string();
 
@@ -109,9 +108,9 @@ fn test_filter_equals() {
         position: Some(5),
     }];
 
-    let assumptions = dict::filter(words, length, rules);
+    let assumptions = filter(words, length, &rules);
 
-    println!("{:?}", assumptions);
+    //dbg!(&assumptions);
 
     let word1 = "масштаб".to_string();
 
@@ -145,9 +144,9 @@ fn test_filter_asterisk() {
         position: Some(8),
     }];
 
-    let assumptions = dict::filter(words, length, rules);
+    let assumptions = filter(words, length, &rules);
 
-    println!("{:?}", assumptions);
+    //dbg!(&assumptions);
 
     let word1 = "концепция".to_string();
 
