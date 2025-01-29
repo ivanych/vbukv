@@ -22,6 +22,8 @@ jobs:
 
   build:
     needs: unit
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
