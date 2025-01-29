@@ -1,10 +1,34 @@
+use std::str::FromStr;
+
 use fancy_regex::Regex;
+
+#[derive(Debug, Clone)]
+pub enum Cond {
+    Plus,
+    Minus,
+    Equals,
+    Asterisk,
+}
+
+impl FromStr for Cond {
+    type Err = ();
+
+    fn from_str(input: &str) -> Result<Cond, Self::Err> {
+        match input {
+            "+" => Ok(Cond::Plus),
+            "-" => Ok(Cond::Minus),
+            "=" => Ok(Cond::Equals),
+            "*" => Ok(Cond::Asterisk),
+            _ => Err(()),
+        }
+    }
+}
 
 #[derive(Debug, Clone)]
 pub struct Rule {
     pub letter: char,
     // TODO тут надо сделать enum вместо char
-    pub condition: char,
+    pub condition: Cond,
     pub position: Option<usize>,
 }
 
@@ -33,6 +57,7 @@ impl Rule {
         };
 
         let letter = caps.get(1).unwrap().as_str().chars().next().unwrap();
+
         // Тут сложность в том, что если в правиле не указано условие,
         // то вторая группа в захвате будет пустой (None).
         // Пустой групе нельзя сделать unwrap, но и unwrap_or('+') тоже нельзя сделать,
@@ -40,7 +65,8 @@ impl Rule {
         // Для возврата одного типа — char — нужен map_or.
         let condition = caps
             .get(2)
-            .map_or('+', |m| m.as_str().chars().next().unwrap());
+            .map_or(Cond::Plus, |m| Cond::from_str(m.as_str()).unwrap());
+
         let position = caps[3].parse::<usize>().ok();
 
         Ok(Rule {

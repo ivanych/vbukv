@@ -1,6 +1,6 @@
 use super::*;
 
-use crate::rule::Rule;
+use crate::rule::{Cond, Rule};
 
 #[test]
 pub fn test_assumptions() {
@@ -10,15 +10,16 @@ pub fn test_assumptions() {
         rules: vec![
             Rule {
                 letter: 'с',
-                condition: '+',
+                condition: Cond::Plus,
                 position: None,
             },
             Rule {
                 letter: 'о',
-                condition: '+',
+                condition: Cond::Plus,
                 position: Some(3),
             },
         ],
+        markdown_help: false,
     };
 
     let assumptions = assumptions(&args);
