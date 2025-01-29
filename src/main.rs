@@ -1,6 +1,7 @@
+use std::process::exit;
 // TODO непонятно, зачем здесь импорт clap-а, но без него не работает. Надо разобраться.
 use clap::Parser;
-
+use clap_markdown;
 use vbukv;
 use vbukv::args::Args;
 
@@ -11,6 +12,11 @@ fn main() {
     // как протестировать функцию, которая читает аргументы командной строки.
     let args = Args::parse();
     //dbg!(&args);
+
+    if args.markdown_help {
+        clap_markdown::print_help_markdown::<Args>();
+        exit(0);
+    }
 
     let assumptions = vbukv::assumptions(&args);
 
