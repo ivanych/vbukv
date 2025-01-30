@@ -1,0 +1,36 @@
+name: Development
+
+on:
+  push
+    #branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+  # Disable incremental compilation for faster from-scratch builds
+  CARGO_INCREMENTAL: 0
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test
+        run: cargo test
+
+  build:
+    needs: unit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vbukv
+          path: target/release/vbukv
