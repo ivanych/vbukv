@@ -30,10 +30,13 @@ jobs:
           name: vbukv
           path: target/release/vbukv
 
+      - name: Rename
+        run: mv target/release/vbukv target/release/vbukv-${{ github.ref_name }}-x86_64-linux
+
       - name: Release
         uses: "marvinpinto/action-automatic-releases@v1.2.1"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            target/release/vbukv
+            target/release/vbukv-${{ github.ref_name }}-x86_64-linux
