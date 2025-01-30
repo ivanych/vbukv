@@ -10,18 +10,16 @@ env:
   CARGO_INCREMENTAL: 0
 
 jobs:
-  #unit:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - name: Checkout
-  #      uses: actions/checkout@v4
-  #    - name: Test
-  #      run: cargo test
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test
+        run: cargo test
 
   build:
-    #needs: unit
-    permissions:
-      contents: write
+    needs: unit
     runs-on: ubuntu-latest
 
     steps:
@@ -36,14 +34,3 @@ jobs:
         with:
           name: vbukv
           path: target/release/vbukv
-
-      - name: Release
-        uses: "marvinpinto/action-automatic-releases@v1.2.1"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          draft: true
-          prerelease: false
-          #title: "Development Build"
-          files: |
-            target/release/vbukv
