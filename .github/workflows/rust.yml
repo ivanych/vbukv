@@ -1,4 +1,4 @@
-name: Rust
+name: Development
 
 on:
   push:
@@ -41,7 +41,7 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         draft: true
-        prerelease: false
+        prerelease: true
         title: "Development Build"
         files: |
           target/release/vbukv
