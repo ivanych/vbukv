@@ -41,7 +41,7 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         #draft: true
-        prerelease: true
+        prerelease: false
         #title: "Development Build"
         files: |
           target/release/vbukv
