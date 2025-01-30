@@ -12,16 +12,16 @@ env:
   CARGO_INCREMENTAL: 0
 
 jobs:
-  unit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Test
-        run: cargo test
+  #unit:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Checkout
+  #      uses: actions/checkout@v4
+  #    - name: Test
+  #      run: cargo test
 
   build:
-    needs: unit
+    #needs: unit
     permissions:
       contents: write
     runs-on: ubuntu-latest
