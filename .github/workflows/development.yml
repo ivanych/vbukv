@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vbukv
-          path: target/release/vbukv
+          path: target/release/vbukv-$${{ github.ref_name }}
