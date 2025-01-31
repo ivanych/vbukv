@@ -27,7 +27,6 @@ impl FromStr for Cond {
 #[derive(Debug, Clone)]
 pub struct Rule {
     pub letter: char,
-    // TODO тут надо сделать enum вместо char
     pub condition: Cond,
     pub position: Option<usize>,
 }

@@ -163,20 +163,10 @@ fn test_filter_asterisk() {
 fn test_is_present_true() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: None,
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'т', &None);
     assert!(is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: Some(4),
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'т', &Some(4));
     assert!(is_true);
 }
 
@@ -184,20 +174,10 @@ fn test_is_present_true() {
 fn test_is_present_false() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'г',
-        condition: Cond::Plus,
-        position: None,
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'г', &None);
     assert!(!is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: Some(3),
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'т', &Some(3));
     assert!(!is_true);
 }
 
@@ -205,20 +185,10 @@ fn test_is_present_false() {
 fn test_is_absent_true() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'г',
-        condition: Cond::Minus,
-        position: None,
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'г', &None);
     assert!(is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Minus,
-        position: Some(5),
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'т', &Some(5));
     assert!(is_true);
 }
 
@@ -226,90 +196,50 @@ fn test_is_absent_true() {
 fn test_is_absent_false() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Minus,
-        position: None,
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'т', &None);
     assert!(!is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Minus,
-        position: Some(4),
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'т', &Some(4));
     assert!(!is_true);
 }
 
 #[test]
 fn test_is_inner_true() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Equals,
-        position: Some(4),
-    };
 
-    let is_inner = is_inner(&word, &rule);
-
+    let is_inner = is_inner(&word, 'т', &Some(4));
     assert!(is_inner);
 }
 
 #[test]
 fn test_is_inner_false() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'а',
-        condition: Cond::Equals,
-        position: Some(5),
-    };
 
-    let is_inner = is_inner(&word, &rule);
-
+    let is_inner = is_inner(&word, 'а', &Some(5));
     assert!(!is_inner);
 }
 
 #[test]
 fn test_is_inner_false_2() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'г',
-        condition: Cond::Equals,
-        position: Some(1),
-    };
 
-    let is_inner = is_inner(&word, &rule);
-
+    let is_inner = is_inner(&word, 'г', &Some(1));
     assert!(!is_inner);
 }
 
 #[test]
 fn test_is_outer_true() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: Some(5),
-    };
 
-    let is_outer = is_outer(&word, &rule);
-
+    let is_outer = is_outer(&word, 'т', &Some(5));
     assert!(is_outer);
 }
 
 #[test]
 fn test_is_outer_false() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'а',
-        condition: Cond::Asterisk,
-        position: Some(5),
-    };
 
-    let is_outer = crate::dict::is_outer(&word, &rule);
-
+    let is_outer = is_outer(&word, 'а', &Some(5));
     assert!(!is_outer);
 }
 
