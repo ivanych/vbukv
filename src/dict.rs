@@ -16,7 +16,7 @@ pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<Strin
                 .iter()
                 // Все правила должны выполниться
                 .all(|rule| match rule.condition {
-                    Cond::Plus => is_present(word, rule),
+                    Cond::Plus => is_present(word, rule.letter, &rule.position),
                     Cond::Minus => is_absent(word, rule),
                     Cond::Equals => is_inner(word, rule),
                     Cond::Asterisk => is_outer(word, rule),
@@ -25,11 +25,10 @@ pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<Strin
         .collect()
 }
 
-// TODO тут не нужно правило целиком, надо принимать только букву и позицию
-fn is_present(word: &String, rule: &Rule) -> bool {
-    match rule.position {
-        None => word.contains(rule.letter),
-        Some(_) => position_symbol(word, &rule.position) == rule.letter,
+fn is_present(word: &String, letter: char, position: &Option<usize>) -> bool {
+    match position {
+        None => word.contains(letter),
+        Some(_) => position_symbol(word, position) == letter,
     }
 }
 

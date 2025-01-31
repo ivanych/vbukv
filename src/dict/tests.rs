@@ -163,20 +163,10 @@ fn test_filter_asterisk() {
 fn test_is_present_true() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: None,
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'т', &None);
     assert!(is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: Some(4),
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'т', &Some(4));
     assert!(is_true);
 }
 
@@ -184,20 +174,10 @@ fn test_is_present_true() {
 fn test_is_present_false() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'г',
-        condition: Cond::Plus,
-        position: None,
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'г', &None);
     assert!(!is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: Some(3),
-    };
-    let is_true = is_present(&word, &rule);
+    let is_true = is_present(&word, 'т', &Some(3));
     assert!(!is_true);
 }
 
