@@ -230,28 +230,16 @@ fn test_is_inner_false_2() {
 #[test]
 fn test_is_outer_true() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Plus,
-        position: Some(5),
-    };
 
-    let is_outer = is_outer(&word, &rule);
-
+    let is_outer = is_outer(&word, 'т', &Some(5));
     assert!(is_outer);
 }
 
 #[test]
 fn test_is_outer_false() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'а',
-        condition: Cond::Asterisk,
-        position: Some(5),
-    };
 
-    let is_outer = crate::dict::is_outer(&word, &rule);
-
+    let is_outer = is_outer(&word, 'а', &Some(5));
     assert!(!is_outer);
 }
 

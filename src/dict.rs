@@ -19,7 +19,7 @@ pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<Strin
                     Cond::Plus => is_present(word, rule.letter, &rule.position),
                     Cond::Minus => is_absent(word, rule.letter, &rule.position),
                     Cond::Equals => is_inner(word, rule.letter, &rule.position),
-                    Cond::Asterisk => is_outer(word, rule),
+                    Cond::Asterisk => is_outer(word, rule.letter, &rule.position),
                 })
         })
         .collect()
@@ -46,11 +46,11 @@ fn is_inner(word: &String, letter: char, position: &Option<usize>) -> bool {
         && !word_without_position(word, position).contains(letter)
 }
 
-fn is_outer(word: &String, rule: &Rule) -> bool {
+fn is_outer(word: &String, letter: char, position: &Option<usize>) -> bool {
     // буквы не должно быть на указанном месте
-    position_symbol(word, &rule.position) != rule.letter
+    position_symbol(word, position) != letter
         // и буква должна быть где-то в другом месте
-        && word_without_position(word, &rule.position).contains(rule.letter)
+        && word_without_position(word, position).contains(letter)
 }
 
 fn position_symbol(word: &String, position: &Option<usize>) -> char {
