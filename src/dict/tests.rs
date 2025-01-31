@@ -206,42 +206,24 @@ fn test_is_absent_false() {
 #[test]
 fn test_is_inner_true() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Equals,
-        position: Some(4),
-    };
 
-    let is_inner = is_inner(&word, &rule);
-
+    let is_inner = is_inner(&word, 'т', &Some(4));
     assert!(is_inner);
 }
 
 #[test]
 fn test_is_inner_false() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'а',
-        condition: Cond::Equals,
-        position: Some(5),
-    };
 
-    let is_inner = is_inner(&word, &rule);
-
+    let is_inner = is_inner(&word, 'а', &Some(5));
     assert!(!is_inner);
 }
 
 #[test]
 fn test_is_inner_false_2() {
     let word = "паста".to_string();
-    let rule = Rule {
-        letter: 'г',
-        condition: Cond::Equals,
-        position: Some(1),
-    };
 
-    let is_inner = is_inner(&word, &rule);
-
+    let is_inner = is_inner(&word, 'г', &Some(1));
     assert!(!is_inner);
 }
 

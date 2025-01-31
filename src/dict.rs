@@ -18,7 +18,7 @@ pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<Strin
                 .all(|rule| match rule.condition {
                     Cond::Plus => is_present(word, rule.letter, &rule.position),
                     Cond::Minus => is_absent(word, rule.letter, &rule.position),
-                    Cond::Equals => is_inner(word, rule),
+                    Cond::Equals => is_inner(word, rule.letter, &rule.position),
                     Cond::Asterisk => is_outer(word, rule),
                 })
         })
@@ -39,12 +39,11 @@ fn is_absent(word: &String, letter: char, position: &Option<usize>) -> bool {
     }
 }
 
-// TODO тут не нужно правило целиком, надо принимать только букву и позицию
-fn is_inner(word: &String, rule: &Rule) -> bool {
+fn is_inner(word: &String, letter: char, position: &Option<usize>) -> bool {
     // буква должно быть на указанном месте
-    position_symbol(word, &rule.position) == rule.letter
+    position_symbol(word, position) == letter
         // и буквы не должно быть где-то в другом месте
-        && !word_without_position(word, &rule.position).contains(rule.letter)
+        && !word_without_position(word, position).contains(letter)
 }
 
 fn is_outer(word: &String, rule: &Rule) -> bool {
