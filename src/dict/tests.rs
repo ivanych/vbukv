@@ -185,20 +185,10 @@ fn test_is_present_false() {
 fn test_is_absent_true() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'г',
-        condition: Cond::Minus,
-        position: None,
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'г', &None);
     assert!(is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Minus,
-        position: Some(5),
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'т', &Some(5));
     assert!(is_true);
 }
 
@@ -206,20 +196,10 @@ fn test_is_absent_true() {
 fn test_is_absent_false() {
     let word = "паста".to_string();
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Minus,
-        position: None,
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'т', &None);
     assert!(!is_true);
 
-    let rule = Rule {
-        letter: 'т',
-        condition: Cond::Minus,
-        position: Some(4),
-    };
-    let is_true = is_absent(&word, &rule);
+    let is_true = is_absent(&word, 'т', &Some(4));
     assert!(!is_true);
 }
 
