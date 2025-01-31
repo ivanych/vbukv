@@ -16,43 +16,41 @@ pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<Strin
                 .iter()
                 // Все правила должны выполниться
                 .all(|rule| match rule.condition {
-                    Cond::Plus => is_present(word, rule),
-                    Cond::Minus => is_absent(word, rule),
-                    Cond::Equals => is_inner(word, rule),
-                    Cond::Asterisk => is_outer(word, rule),
+                    Cond::Plus => is_present(word, rule.letter, &rule.position),
+                    Cond::Minus => is_absent(word, rule.letter, &rule.position),
+                    Cond::Equals => is_inner(word, rule.letter, &rule.position),
+                    Cond::Asterisk => is_outer(word, rule.letter, &rule.position),
                 })
         })
         .collect()
 }
 
-// TODO тут не нужно правило целиком, надо принимать только букву и позицию
-fn is_present(word: &String, rule: &Rule) -> bool {
-    match rule.position {
-        None => word.contains(rule.letter),
-        Some(_) => position_symbol(word, &rule.position) == rule.letter,
+fn is_present(word: &String, letter: char, position: &Option<usize>) -> bool {
+    match position {
+        None => word.contains(letter),
+        Some(_) => position_symbol(word, position) == letter,
     }
 }
 
-fn is_absent(word: &String, rule: &Rule) -> bool {
-    !match rule.position {
-        None => word.contains(rule.letter),
-        Some(_) => position_symbol(word, &rule.position) == rule.letter,
+fn is_absent(word: &String, letter: char, position: &Option<usize>) -> bool {
+    !match position {
+        None => word.contains(letter),
+        Some(_) => position_symbol(word, position) == letter,
     }
 }
 
-// TODO тут не нужно правило целиком, надо принимать только букву и позицию
-fn is_inner(word: &String, rule: &Rule) -> bool {
+fn is_inner(word: &String, letter: char, position: &Option<usize>) -> bool {
     // буква должно быть на указанном месте
-    position_symbol(word, &rule.position) == rule.letter
+    position_symbol(word, position) == letter
         // и буквы не должно быть где-то в другом месте
-        && !word_without_position(word, &rule.position).contains(rule.letter)
+        && !word_without_position(word, position).contains(letter)
 }
 
-fn is_outer(word: &String, rule: &Rule) -> bool {
+fn is_outer(word: &String, letter: char, position: &Option<usize>) -> bool {
     // буквы не должно быть на указанном месте
-    position_symbol(word, &rule.position) != rule.letter
+    position_symbol(word, position) != letter
         // и буква должна быть где-то в другом месте
-        && word_without_position(word, &rule.position).contains(rule.letter)
+        && word_without_position(word, position).contains(letter)
 }
 
 fn position_symbol(word: &String, position: &Option<usize>) -> char {
