@@ -17,7 +17,6 @@ pub struct Args {
     #[arg(short, long, default_value_t = 5)]
     pub length: usize,
 
-    // TODO надо сделать не string, а спецтип для путей
     /// Файл словаря.
     ///
     /// Относительный путь к файлу словаря.
