@@ -31,8 +31,10 @@ pub struct Rule {
     pub position: Option<usize>,
 }
 
-impl Rule {
-    pub fn build(r: &str) -> Result<Rule, String> {
+impl FromStr for Rule {
+    type Err = String;
+
+    fn from_str(r: &str) -> Result<Rule, Self::Err> {
         // Эта регулярка разбирает и одновременно проверяет синтаксис правила
         // Для проверки того, что условия `=` и `*` используются с позицией,
         // применяется заглядывание вперёд (?=), а для него нужен крейт fancy_regex,
