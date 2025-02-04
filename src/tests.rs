@@ -1,26 +1,12 @@
 use super::*;
 
-use crate::rule::{Cond, Rule};
+// TODO непонятно, зачем здесь импорт clap-а, но без него не работает. Надо разобраться.
+use clap::Parser;
 
 #[test]
 pub fn test_assumptions() {
-    let args = Args {
-        length: 5usize,
-        file: "test_slovar.txt".to_string(),
-        rules: vec![
-            Rule {
-                letter: 'с',
-                condition: Cond::Plus,
-                position: None,
-            },
-            Rule {
-                letter: 'о',
-                condition: Cond::Plus,
-                position: Some(3),
-            },
-        ],
-        markdown_help: false,
-    };
+    let args = Args::parse_from(["vbukv", "--file", "test_slovar.txt", "с+", "о+3"]);
+    dbg!(&args);
 
     let assumptions = assumptions(&args);
     dbg!(&assumptions);

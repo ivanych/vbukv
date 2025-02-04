@@ -1,6 +1,6 @@
-use clap::Parser;
-
 use crate::rule::Rule;
+use clap::Parser;
+use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about)]
@@ -24,7 +24,7 @@ pub struct Args {
     /// Словарь должен быть в формате plain text, одно слово в строке, кодировка utf-8.
     #[arg(short, long, default_value = "slovar.txt")]
     // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
-    pub file: String,
+    pub file: PathBuf,
 
     /// Правило поиска (можно задать любое количество правил).
     ///
@@ -79,9 +79,9 @@ pub struct Args {
     /// на каком-то другом месте.
     #[arg(value_name= "RULE", value_parser = Rule::build)]
     // TODO Надо Vec<Rule> переделать на структуру Rules
-    // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     pub rules: Vec<Rule>,
 
+    // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     #[arg(long, hide = true)]
     pub markdown_help: bool,
 }

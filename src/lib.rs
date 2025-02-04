@@ -8,7 +8,11 @@ use args::Args;
 pub fn assumptions(args: &Args) -> Vec<String> {
     // Прочитать слова из файла
     let words = file::words_from_file(&args.file);
-    println!("Прочитан словарь: {} ({} слов)", args.file, words.len());
+    println!(
+        "Прочитан словарь: {:?} ({} слов)",
+        args.file.file_name().unwrap(),
+        words.len()
+    );
 
     // Найти предположения
     let assumptions = dict::filter(words, args.length, &args.rules);

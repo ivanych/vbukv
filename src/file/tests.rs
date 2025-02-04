@@ -2,8 +2,8 @@ use super::*;
 
 #[test]
 fn words_from_file_test_success() {
-    // TODO Вроде нет стандартного места для размещения такиех файлов...
-    // Размещу рядом с тестом.
+    // TODO Вроде нет стандартного места для размещения таких файлов...
+    // Размещу в корне
     let filename = "test_slovar.txt".to_string();
 
     let words = words_from_file(filename);
