@@ -1,18 +1,11 @@
 use super::*;
-use crate::rule::{Cond, Rule};
 
 #[test]
 fn test_args() {
-    let args = Args {
-        length: 5,
-        file: "test_slovar.txt".to_string(),
-        rules: vec![Rule {
-            letter: 'с',
-            condition: Cond::Plus,
-            position: None,
-        }],
-        markdown_help: false,
-    };
+    let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+"]);
 
     assert_eq!(args.length, 5);
+    assert_eq!(args.file.into_os_string(), "test_slovar.txt");
+    assert_eq!(args.rules.len(), 1);
+    assert_eq!(args.rules.iter().nth(0).unwrap().letter, 'c');
 }
