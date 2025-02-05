@@ -4,18 +4,23 @@ pub mod file;
 pub mod rule;
 
 use args::Args;
+use dict::Dict;
 
 pub fn assumptions(args: &Args) -> Vec<String> {
     // Прочитать слова из файла
     let words = file::words_from_file(&args.file);
     println!(
-        "Прочитан словарь: {:?} ({} слов)",
-        args.file.file_name().unwrap(),
+        "Прочитан файл {} ({} слов)",
+        args.file.display(),
         words.len()
     );
 
+    // Создать словарь
+    let dict = Dict::new(words);
+    //dbg!(&dict);
+
     // Найти предположения
-    let assumptions = dict::filter(words, args.length, &args.rules);
+    let assumptions = dict.filter(args.length, &args.rules);
 
     assumptions
 }

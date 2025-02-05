@@ -30,7 +30,7 @@ fn test_filter_plus() {
         },
     ];
 
-    let assumptions = filter(words, length, &rules);
+    let assumptions = Dict::new(words).filter(length, &rules);
 
     //dbg!(&assumptions);
 
@@ -73,7 +73,7 @@ fn test_filter_minus() {
         },
     ];
 
-    let assumptions = filter(words, length, &rules);
+    let assumptions = Dict::new(words).filter(length, &rules);
 
     //dbg!(&assumptions);
 
@@ -109,7 +109,7 @@ fn test_filter_equals() {
         position: Some(5),
     }];
 
-    let assumptions = filter(words, length, &rules);
+    let assumptions = Dict::new(words).filter(length, &rules);
 
     //dbg!(&assumptions);
 
@@ -145,7 +145,7 @@ fn test_filter_asterisk() {
         position: Some(8),
     }];
 
-    let assumptions = filter(words, length, &rules);
+    let assumptions = Dict::new(words).filter(length, &rules);
 
     //dbg!(&assumptions);
 
