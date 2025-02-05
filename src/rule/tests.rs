@@ -4,7 +4,7 @@ use super::*;
 fn build_test_success() -> Result<(), String> {
     let rule_cli = "a-";
 
-    let rule = Rule::build(&rule_cli)?;
+    let rule = Rule::from_str(&rule_cli)?;
 
     assert_eq!(rule.letter, 'a');
     assert!(match rule.condition {
@@ -20,7 +20,7 @@ fn build_test_success() -> Result<(), String> {
 fn build_test_default_condition() -> Result<(), String> {
     let rule_cli = "a";
 
-    let rule = Rule::build(&rule_cli)?;
+    let rule = Rule::from_str(&rule_cli)?;
 
     assert!(match rule.condition {
         Cond::Plus => true,
@@ -34,7 +34,7 @@ fn build_test_default_condition() -> Result<(), String> {
 fn build_test_condition_plus() -> Result<(), String> {
     let rule_cli = "a+";
 
-    let rule = Rule::build(&rule_cli)?;
+    let rule = Rule::from_str(&rule_cli)?;
 
     assert!(match rule.condition {
         Cond::Plus => true,
@@ -48,7 +48,7 @@ fn build_test_condition_plus() -> Result<(), String> {
 fn build_test_condition_equals() -> Result<(), String> {
     let rule_cli = "a=4";
 
-    let rule = Rule::build(&rule_cli)?;
+    let rule = Rule::from_str(&rule_cli)?;
 
     assert!(match rule.condition {
         Cond::Equals => true,
@@ -62,7 +62,7 @@ fn build_test_condition_equals() -> Result<(), String> {
 fn build_test_condition_asterisk() -> Result<(), String> {
     let rule_cli = "a*4";
 
-    let rule = Rule::build(&rule_cli)?;
+    let rule = Rule::from_str(&rule_cli)?;
 
     assert!(match rule.condition {
         Cond::Asterisk => true,
@@ -76,7 +76,7 @@ fn build_test_condition_asterisk() -> Result<(), String> {
 fn build_test_failed() -> Result<(), String> {
     let rule_cli = "a^";
 
-    let rule = Rule::build(&rule_cli);
+    let rule = Rule::from_str(&rule_cli);
 
     assert!(rule.is_err());
 

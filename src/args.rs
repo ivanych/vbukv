@@ -17,7 +17,6 @@ pub struct Args {
     #[arg(short, long, default_value_t = 5)]
     pub length: usize,
 
-    // TODO надо сделать не string, а спецтип для путей
     /// Файл словаря.
     ///
     /// Относительный путь к файлу словаря.
@@ -77,7 +76,7 @@ pub struct Args {
     ///
     /// `б*1` — первая буква в слове это не буква `б`. При этом в слове есть буква `б`
     /// на каком-то другом месте.
-    #[arg(value_name= "RULE", value_parser = Rule::build)]
+    #[arg(value_name = "RULE")]
     // TODO Надо Vec<Rule> переделать на структуру Rules
     pub rules: Vec<Rule>,
 

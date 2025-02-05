@@ -1,28 +1,42 @@
 use crate::rule::{Cond, Rule};
 
-pub fn filter(words: Vec<String>, length: usize, rules: &Vec<Rule>) -> Vec<String> {
-    words
-        .into_iter() // почему тут into_iter? надо разобраться...
-        // Берём только нужные слова
-        .filter(|word| {
-            //dbg!(&word);
+#[derive(Debug)]
+pub struct Dict {
+    words: Vec<String>,
+}
 
-            // Длина
-            if word.chars().count() != length {
-                return false;
-            }
+impl Dict {
+    pub fn new(words: Vec<String>) -> Dict {
+        Dict { words }
+    }
 
-            rules
-                .iter()
-                // Все правила должны выполниться
-                .all(|rule| match rule.condition {
-                    Cond::Plus => is_present(word, rule.letter, &rule.position),
-                    Cond::Minus => is_absent(word, rule.letter, &rule.position),
-                    Cond::Equals => is_inner(word, rule.letter, &rule.position),
-                    Cond::Asterisk => is_outer(word, rule.letter, &rule.position),
-                })
-        })
-        .collect()
+    pub fn filter(&self, length: usize, rules: &Vec<Rule>) -> Vec<String> {
+        self.words
+            // идём по ссылкам на слова
+            .iter()
+            // Берём только нужные слова
+            .filter(|&word| {
+                //dbg!(&word);
+
+                // Длина
+                if word.chars().count() != length {
+                    return false;
+                }
+
+                rules
+                    .iter()
+                    // Все правила должны выполниться
+                    .all(|rule| match rule.condition {
+                        Cond::Plus => is_present(word, rule.letter, &rule.position),
+                        Cond::Minus => is_absent(word, rule.letter, &rule.position),
+                        Cond::Equals => is_inner(word, rule.letter, &rule.position),
+                        Cond::Asterisk => is_outer(word, rule.letter, &rule.position),
+                    })
+            })
+            // разыменовываем ссылки на слова
+            .cloned()
+            .collect()
+    }
 }
 
 fn is_present(word: &String, letter: char, position: &Option<usize>) -> bool {
