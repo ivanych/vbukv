@@ -1,6 +1,8 @@
 use crate::rule::Rule;
 use clap::Parser;
+use clap_markdown;
 use std::path::PathBuf;
+use std::process::exit;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about)]
@@ -83,6 +85,17 @@ pub struct Args {
     // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     #[arg(long, hide = true)]
     pub markdown_help: bool,
+}
+
+pub fn argsparse() -> Args {
+    let args = Args::parse();
+
+    if args.markdown_help {
+        clap_markdown::print_help_markdown::<Args>();
+        exit(0);
+    }
+
+    args
 }
 
 #[cfg(test)]
