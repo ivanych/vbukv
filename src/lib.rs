@@ -2,6 +2,7 @@ pub mod args;
 pub mod dict;
 pub mod file;
 pub mod rule;
+pub mod term;
 
 use args::Args;
 use dict::Dict;

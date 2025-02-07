@@ -4,6 +4,7 @@ use clap::Parser;
 use clap_markdown;
 use vbukv;
 use vbukv::args::Args;
+use vbukv::term;
 
 fn main() {
     // TODO Эту конструкцию надо бы засунуть в функцию vbukv::args,
@@ -20,13 +21,6 @@ fn main() {
 
     let assumptions = vbukv::assumptions(&args);
 
-    println!("Предположения:");
-    println!("---------------------------------");
-
-    for assumption in &assumptions {
-        println!("{}", assumption);
-    }
-
-    println!("---------------------------------");
-    println!("Найдено предположений: {}", assumptions.len());
+    // Вывести предположения
+    term::output(&assumptions).expect("Failed to print output");
 }
