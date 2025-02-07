@@ -1,7 +1,7 @@
 use super::*;
 
 #[test]
-fn test_args() {
+fn test_args_parse() {
     let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+"]);
 
     assert_eq!(args.length, 5);
