@@ -1,3 +1,4 @@
+
 pub fn output(assumptions: &Vec<String>) -> Result<bool, String> {
     println!("Предположения:");
     println!("---------------------------------");
@@ -13,4 +14,4 @@ pub fn output(assumptions: &Vec<String>) -> Result<bool, String> {
 }
 
 #[cfg(test)]
-mod tests {}
+mod tests;
