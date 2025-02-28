@@ -1,6 +1,8 @@
 use crate::rule::Rule;
 use clap::Parser;
+use clap_markdown;
 use std::path::PathBuf;
+use std::process::exit;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about)]
@@ -13,8 +15,8 @@ pub struct Args {
     /// Длина искомого слова.
     ///
     /// Будут найдены только те слова, которые состоят из указанного количества букв.
-    // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     #[arg(short, long, default_value_t = 5)]
+    // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     pub length: usize,
 
     /// Файл словаря.
@@ -80,9 +82,22 @@ pub struct Args {
     // TODO Надо Vec<Rule> переделать на структуру Rules
     pub rules: Vec<Rule>,
 
-    // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     #[arg(long, hide = true)]
+    // TODO Почему-то эта строчка не попадает в покрытие тестами. Надо разобраться.
     pub markdown_help: bool,
+}
+
+// TODO Эту функцию пока не получается покрыть тестами,
+// потому что непонятно как мокнуть Args::parse().
+pub fn argsparse() -> Args {
+    let args = Args::parse();
+
+    if args.markdown_help {
+        clap_markdown::print_help_markdown::<Args>();
+        exit(0);
+    }
+
+    args
 }
 
 #[cfg(test)]
