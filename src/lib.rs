@@ -1,6 +1,7 @@
 pub mod args;
 pub mod dict;
 pub mod file;
+pub mod output;
 pub mod rule;
 
 use args::Args;
