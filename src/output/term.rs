@@ -1,4 +1,3 @@
-
 pub fn output(assumptions: &Vec<String>) -> Result<bool, String> {
     println!("Предположения:");
     println!("---------------------------------");

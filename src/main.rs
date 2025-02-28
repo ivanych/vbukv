@@ -3,8 +3,7 @@ use std::process::exit;
 use clap::Parser;
 use clap_markdown;
 use vbukv;
-use vbukv::args::Args;
-use vbukv::term;
+use vbukv::{args::Args, output::term};
 
 fn main() {
     // TODO Эту конструкцию надо бы засунуть в функцию vbukv::args,
