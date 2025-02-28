@@ -4,6 +4,7 @@ use vbukv::output;
 fn main() {
     // Прочитать аргументы командной строки
     let args = args::argsparse();
+
     //dbg!(&args);
 
     // Найти предположения
