@@ -1,32 +1,15 @@
-use std::process::exit;
-// TODO непонятно, зачем здесь импорт clap-а, но без него не работает. Надо разобраться.
-use clap::Parser;
-use clap_markdown;
-use vbukv;
-use vbukv::args::Args;
+use vbukv::args;
+use vbukv::output;
 
 fn main() {
-    // TODO Эту конструкцию надо бы засунуть в функцию vbukv::args,
-    // чтобы все вызовы здесь были из библиотеки vbukv, для единообразия.
-    // Но в библиотеке эту функцию нужно тестировать, а я пока не знаю,
-    // как протестировать функцию, которая читает аргументы командной строки.
-    let args = Args::parse();
+    // Прочитать аргументы командной строки
+    let args = args::argsparse();
+
     //dbg!(&args);
 
-    if args.markdown_help {
-        clap_markdown::print_help_markdown::<Args>();
-        exit(0);
-    }
-
+    // Найти предположения
     let assumptions = vbukv::assumptions(&args);
 
-    println!("Предположения:");
-    println!("---------------------------------");
-
-    for assumption in &assumptions {
-        println!("{}", assumption);
-    }
-
-    println!("---------------------------------");
-    println!("Найдено предположений: {}", assumptions.len());
+    // Вывести предположения
+    output::term::output(&assumptions).expect("Failed to print output");
 }
