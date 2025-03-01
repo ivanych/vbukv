@@ -1,11 +1,11 @@
-pub mod args;
 pub mod dict;
 pub mod file;
+pub mod input;
 pub mod output;
 pub mod rule;
 
-use args::Args;
 use dict::Dict;
+use input::args::Args;
 
 pub fn assumptions(args: &Args) -> Vec<String> {
     // Прочитать слова из файла
