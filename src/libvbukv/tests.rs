@@ -1,6 +1,6 @@
 use super::*;
 
-// TODO непонятно, зачем здесь импорт clap-а, но без него не работает. Надо разобраться.
+use crate::libvbukv::assumptions;
 use clap::Parser;
 
 #[test]

@@ -1,4 +1,5 @@
 use vbukv::args;
+use vbukv::libvbukv;
 use vbukv::output;
 
 fn main() {
@@ -8,7 +9,7 @@ fn main() {
     //dbg!(&args);
 
     // Найти предположения
-    let assumptions = vbukv::assumptions(&args);
+    let assumptions = libvbukv::assumptions(&args);
 
     // Вывести предположения
     output::term::output(&assumptions).expect("Failed to print output");

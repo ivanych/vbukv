@@ -1,8 +1,9 @@
-use crate::rule::Rule;
 use clap::Parser;
 use clap_markdown;
 use std::path::PathBuf;
 use std::process::exit;
+
+use crate::libvbukv::rule::Rule;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about)]
