@@ -4,7 +4,7 @@ pub mod rule;
 #[cfg(test)]
 mod tests;
 
-use crate::args::Args;
+use crate::input::args::Args;
 use dict::Dict;
 
 pub fn assumptions(args: &Args) -> Vec<String> {
