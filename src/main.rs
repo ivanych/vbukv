@@ -1,12 +1,10 @@
-use vbukv::args;
 use vbukv::libvbukv;
+use vbukv::input;
 use vbukv::output;
 
 fn main() {
     // Прочитать аргументы командной строки
-    let args = args::argsparse();
-
-    //dbg!(&args);
+    let args = input::args::argsparse();
 
     // Найти предположения
     let assumptions = libvbukv::assumptions(&args);
