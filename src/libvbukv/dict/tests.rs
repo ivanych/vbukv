@@ -1,5 +1,5 @@
 use super::*;
-use crate::rule::Cond;
+use crate::libvbukv::rule::Cond;
 
 #[test]
 fn test_filter_plus() {

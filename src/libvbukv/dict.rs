@@ -1,4 +1,7 @@
-use crate::rule::{Cond, Rule};
+#[cfg(test)]
+mod tests;
+
+use crate::libvbukv::rule::{Cond, Rule};
 
 #[derive(Debug)]
 pub struct Dict {
@@ -82,6 +85,3 @@ fn word_without_position(word: &String, position: &Option<usize>) -> String {
         .map(|(_, c)| c)
         .collect()
 }
-
-#[cfg(test)]
-mod tests;

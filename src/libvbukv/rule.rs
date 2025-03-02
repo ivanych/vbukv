@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod tests;
+
 use std::str::FromStr;
 
 use fancy_regex::Regex;
@@ -73,6 +76,3 @@ impl FromStr for Rule {
         })
     }
 }
-
-#[cfg(test)]
-mod tests;
