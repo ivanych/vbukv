@@ -1,6 +1,6 @@
 [package]
 name = "vbukv"
-version = "0.1.6"
+version = "0.1.7"
 description = "Угадывалка слов по буквам"
 authors = ["Mikhail Ivanov <m.ivanych@gmail.com>"]
 
