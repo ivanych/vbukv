@@ -1,7 +1,11 @@
+//! тест maint
+#![warn(missing_docs)]
+
 use vbukv::input;
 use vbukv::libvbukv;
 use vbukv::output;
 
+/// документация к main()
 fn main() {
     // Прочитать аргументы командной строки
     let args = input::args::argsparse();
