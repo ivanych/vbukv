@@ -16,8 +16,8 @@ pub enum Cond {
 impl FromStr for Cond {
     type Err = ();
 
-    fn from_str(input: &str) -> Result<Cond, Self::Err> {
-        match input {
+    fn from_str(s: &str) -> Result<Cond, Self::Err> {
+        match s {
             "+" => Ok(Cond::Plus),
             "-" => Ok(Cond::Minus),
             "=" => Ok(Cond::Equals),
@@ -37,7 +37,7 @@ pub struct Rule {
 impl FromStr for Rule {
     type Err = String;
 
-    fn from_str(r: &str) -> Result<Rule, Self::Err> {
+    fn from_str(s: &str) -> Result<Rule, Self::Err> {
         // Эта регулярка разбирает и одновременно проверяет синтаксис правила
         // Для проверки того, что условия `=` и `*` используются с позицией,
         // применяется заглядывание вперёд (?=), а для него нужен крейт fancy_regex,
@@ -48,7 +48,7 @@ impl FromStr for Rule {
         // Вроде сравнение с регуляркой должно работать всегда, успешного захвата может и не быть,
         // но ошибка всё-равно вроде не должна возникать...
         // Из-за этого строчка остаётся не покрытой тестами.
-        let caps = re.captures(r).map_err(|e| e.to_string())?;
+        let caps = re.captures(s).map_err(|e| e.to_string())?;
 
         let caps = if caps.is_some() {
             caps.unwrap()
