@@ -1,14 +1,23 @@
 use super::*;
 
-use crate::libvbukv::assumptions;
-use clap::Parser;
+use std::str::FromStr;
 
 #[test]
 pub fn test_assumptions() {
-    let args = Args::parse_from(["vbukv", "--file", "test_slovar.txt", "с+", "о+3"]);
-    dbg!(&args);
+    let file = PathBuf::from("test_slovar.txt");
+    dbg!(&file);
 
-    let assumptions = assumptions(&args);
+    let length = 5;
+    dbg!(&length);
+
+    let rules = vec![
+        Rule::from_str("с+").unwrap(),
+        Rule::from_str("о+3").unwrap(),
+    ];
+    dbg!(&rules);
+
+    // Предположения
+    let assumptions = assumptions(&file, length, &rules);
     dbg!(&assumptions);
 
     let word1 = "стопа".to_string();
