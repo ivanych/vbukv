@@ -85,3 +85,13 @@ fn word_without_position(word: &String, position: &Option<usize>) -> String {
         .map(|(_, c)| c)
         .collect()
 }
+
+h1 {
+    margin
+}
+h2 {
+    margin
+}
+h3 {
+    margin
+}
