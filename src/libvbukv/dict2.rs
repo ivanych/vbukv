@@ -86,10 +86,11 @@ fn word_without_position(word: &String, position: &Option<usize>) -> String {
         .collect()
 }
 
-h1 {
+
+h2 {
     margin
 }
-h2 {
+h1 {
     margin
 }
 h3 {
