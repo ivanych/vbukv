@@ -1,3 +1,5 @@
+//! Поиск слов в словаре по буквам
+
 pub mod dict;
 pub mod file;
 pub mod rule;

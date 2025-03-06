@@ -7,7 +7,6 @@ use crate::libvbukv::rule::Rule;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about)]
-#[doc(hidden)]
 /// Угадывалка слов по буквам
 ///
 /// Программа ищет слово (или слова) в словаре по заданным правилам.

@@ -1,6 +1,7 @@
+//! Библиотека и консольное приложение для поиска слов в словаре по буквам
+
 #![warn(missing_docs)]
 
-//! тест док lib
 
 pub mod input;
 pub mod libvbukv;
