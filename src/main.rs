@@ -1,7 +1,6 @@
 #![warn(missing_docs)]
 #![doc = include_str!("../README.md")]
 
-
 use vbukv::input;
 use vbukv::libvbukv;
 use vbukv::output;

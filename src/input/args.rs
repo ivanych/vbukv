@@ -1,5 +1,9 @@
+#[cfg(test)]
+mod tests;
+
 use clap::Parser;
 use clap_markdown;
+use std::ffi::OsString;
 use std::path::PathBuf;
 use std::process::exit;
 
@@ -101,5 +105,20 @@ pub fn argsparse() -> Args {
     args
 }
 
-#[cfg(test)]
-mod tests;
+// TODO сигнатура списана один-в-один с функции parse_from,
+// в которую дальше передаём itr.
+// Надо разобраться, как это работает.
+pub fn parse_from<I, T>(itr: I) -> Args
+where
+    I: IntoIterator<Item = T>,
+    T: Into<OsString> + Clone,
+{
+    let args = Args::parse_from(itr);
+
+    if args.markdown_help {
+        clap_markdown::print_help_markdown::<Args>();
+        exit(0);
+    }
+
+    args
+}
