@@ -4,13 +4,13 @@
 
 Файл приложения **main.rs**:
 ```
-use vbukv::input;
+use vbukv::input::args;
 use vbukv::libvbukv;
 
 // Получить параметры поиска из аргументов командной строки
 // (на самом деле приложение использует не `parse_from`, а `parse`,
 // но для примера удобнее использовать `parse_from`).
-let args = input::args::parse_from(["vbukv", "-f", "test_slovar.txt", "с+", "о+3"]);
+let args = args::parse_from(["vbukv", "-f", "test_slovar.txt", "с+", "о+3"]);
 
 // Найти слова, подходящие под заданные параметры
 let assumptions = libvbukv::assumptions(&args.file, args.length, &args.rules);
@@ -24,7 +24,7 @@ assert!(assumptions.contains(&word));
 
 Пакет [vbukv](http://github.com/ivanych/vbukv) содержит библиотеку
 для поиска слов в словаре по буквам.
-Также в пакете есть готовое консольное приложение,
+Также в пакете есть готовое консольное приложение **vbukv**,
 сделанное с использованием этой библиотеки.
 
 Для поиска слов в словаре могут быть заданы следующие параметры:
@@ -33,14 +33,14 @@ assert!(assumptions.contains(&word));
 * **rules** — список правил, по поторым нужно искать слова в словаре (строки)
 
 Консольное приложение **vbukv** получает эти параметры из аргументов
-командной строки с помощью модуля `input`. При непосредственном использовании
+командной строки с помощью модуля [input::args]. При непосредственном использовании
 библиотеки `vbukv` эти параметры могут быть взяты где угодно,
 на усмотрение программиста.
 
 Результаты работы консольного приложения выводятся в терминал:
 
 ```
-use vbukv::output;
+use vbukv::output::term;
 
 // Найти слова, подходящие под заданные параметры
 // let assumptions = libvbukv::assumptions...
@@ -51,7 +51,7 @@ use vbukv::output;
 # ];
 
 // Вывести найденные слова
-output::term::output(&assumptions).expect("Failed to print output");
+term::output(&assumptions).expect("Failed to print output");
 ```
 
 Библиотека не занимается выводом, релизация вывода остаётся решением
