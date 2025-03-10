@@ -94,6 +94,7 @@ pub struct Args {
 
 // TODO Эту функцию пока не получается покрыть тестами,
 // потому что непонятно как мокнуть Args::parse().
+// Надо разобраться.
 pub fn parse() -> Args {
     let args = Args::parse();
 
@@ -117,6 +118,9 @@ where
     args
 }
 
+// TODO Эту функцию пока не получается покрыть тестами,
+// потому что непонятно как мокнуть exit().
+// Надо разобраться.
 fn markdown_help(args: &Args) {
     if args.markdown_help {
         clap_markdown::print_help_markdown::<Args>();
