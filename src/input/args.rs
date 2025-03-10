@@ -94,13 +94,10 @@ pub struct Args {
 
 // TODO Эту функцию пока не получается покрыть тестами,
 // потому что непонятно как мокнуть Args::parse().
-pub fn argsparse() -> Args {
+pub fn parse() -> Args {
     let args = Args::parse();
 
-    if args.markdown_help {
-        clap_markdown::print_help_markdown::<Args>();
-        exit(0);
-    }
+    markdown_help(&args);
 
     args
 }
@@ -115,10 +112,14 @@ where
 {
     let args = Args::parse_from(itr);
 
+    markdown_help(&args);
+
+    args
+}
+
+fn markdown_help(args: &Args) {
     if args.markdown_help {
         clap_markdown::print_help_markdown::<Args>();
         exit(0);
     }
-
-    args
 }
