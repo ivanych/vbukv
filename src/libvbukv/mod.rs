@@ -6,9 +6,9 @@ pub mod rule;
 #[cfg(test)]
 mod tests;
 
-use dict::Dict;
-use rule::Rule;
 use std::path::PathBuf;
+use dict::Dict;
+pub use rule::Rule;
 
 pub fn assumptions(file: &PathBuf, length: usize, rules: &Vec<Rule>) -> Vec<String> {
     // Прочитать слова из файла
