@@ -1,3 +1,23 @@
+//! Словарь и методы для поиска слов
+//!
+//! # SYNOPSIS
+//! ```
+//! // Слова, среди которых будет происходить поиск
+//! let words = vec![
+//!    String::from("раз"),
+//!    String::from("два"),
+//!    String::from("три"),
+//! ];
+//!
+//! // Создать словарь
+//! let dict = Dict::new(words);
+//!
+//! // Найти слова, подходящие под заданные параметры
+//! let assumptions = dict.filter(length, rules);
+//! ```
+//!
+//! # DESCRIPTION
+//!
 #[cfg(test)]
 mod tests;
 
