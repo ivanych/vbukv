@@ -1,4 +1,25 @@
 //! Вывод результата в терминал.
+//!
+//! # SYNOPSIS
+//! ```
+//! use vbukv::output::term;
+//!
+//! // Найденные слова
+//! let assumptions = vec![
+//!     String::from("раз"),
+//!     String::from("два"),
+//!     String::from("три"),
+//! ];
+//!
+//! // Вывести найденные слова
+//! term::output(&assumptions).expect("Failed to print output");
+//! ```
+//!
+//! # DESCRIPTION
+//!
+//! Модуль term выводит результат в терминал. Основная функция вывода —
+//! [output]. Она выводит результат в виде простого текста.
+//!
 
 #[cfg(test)]
 mod tests;
