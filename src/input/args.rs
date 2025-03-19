@@ -137,12 +137,12 @@ pub struct Args {
 /// ```
 /// use vbukv::input::args;
 ///
-/// // В этом примере подразумевается, что программа запущена в командной строке
-/// // с такими аргументами:
-/// // vbukv -l 5 -f test_slovar.txt c+
 /// let args = args::parse();
 /// # let args = args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+"]);
 ///
+/// // В этом примере подразумевается, что программа запущена в командной строке
+/// // с такими аргументами:
+/// // vbukv -l 5 -f test_slovar.txt c+
 /// assert_eq!(args.length, 5);
 /// assert_eq!(args.file.into_os_string(), "test_slovar.txt");
 /// assert_eq!(args.rules.len(), 1);
