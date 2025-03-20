@@ -43,7 +43,7 @@ use std::ffi::OsString;
 use std::path::PathBuf;
 use std::process::exit;
 
-use crate::libvbukv::rule::Rule;
+use crate::libvbukv::Rule;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about)]
