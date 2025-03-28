@@ -91,3 +91,88 @@ fn struct_cond_from_str_test_failed() -> Result<(), String> {
 
     Ok(())
 }
+
+#[test]
+fn test_is_present_true() {
+    let word = "паста".to_string();
+
+    assert!(Rule::from_str("т").unwrap().is_present(&word));
+    assert!(Rule::from_str("т+4").unwrap().is_present(&word));
+}
+
+#[test]
+fn test_is_present_false() {
+    let word = "паста".to_string();
+
+    assert!(!Rule::from_str("г").unwrap().is_present(&word));
+    assert!(!Rule::from_str("т+3").unwrap().is_present(&word));
+}
+
+#[test]
+fn test_is_absent_true() {
+    let word = "паста".to_string();
+
+    assert!(Rule::from_str("г").unwrap().is_absent(&word));
+    assert!(Rule::from_str("т-5").unwrap().is_absent(&word));
+}
+
+#[test]
+fn test_is_absent_false() {
+    let word = "паста".to_string();
+
+    assert!(!Rule::from_str("т").unwrap().is_absent(&word));
+    assert!(!Rule::from_str("т-4").unwrap().is_absent(&word));
+}
+
+#[test]
+fn test_is_inner_true() {
+    let word = "паста".to_string();
+
+    assert!(Rule::from_str("т=4").unwrap().is_inner(&word));
+}
+
+#[test]
+fn test_is_inner_false() {
+    let word = "паста".to_string();
+
+    assert!(!Rule::from_str("а=2").unwrap().is_inner(&word));
+}
+
+#[test]
+fn test_is_inner_false_2() {
+    let word = "паста".to_string();
+
+    assert!(!Rule::from_str("г=1").unwrap().is_inner(&word));
+}
+
+#[test]
+fn test_is_outer_true() {
+    let word = "паста".to_string();
+
+    assert!(Rule::from_str("т*5").unwrap().is_outer(&word));
+}
+
+#[test]
+fn test_is_outer_false() {
+    let word = "паста".to_string();
+
+    assert!(!Rule::from_str("а*5").unwrap().is_outer(&word));
+}
+
+#[test]
+fn test_position_symbol() {
+    let word = "паста".to_string();
+
+    let symbol = position_symbol(&word, &Some(4));
+
+    assert_eq!(symbol, 'т');
+}
+
+#[test]
+fn test_word_without_position() {
+    let word = "паста".to_string();
+
+    let word = word_without_position(&word, &Some(4));
+
+    assert_eq!(word, "паса".to_string());
+}
