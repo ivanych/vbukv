@@ -6,7 +6,7 @@ use std::str::FromStr;
 use fancy_regex::Regex;
 
 #[derive(Debug, Clone)]
-pub enum Cond {
+enum Cond {
     Plus,
     Minus,
     Equals,
@@ -29,9 +29,48 @@ impl FromStr for Cond {
 
 #[derive(Debug, Clone)]
 pub struct Rule {
-    pub letter: char,
-    pub condition: Cond,
-    pub position: Option<usize>,
+    letter: char,
+    condition: Cond,
+    position: Option<usize>,
+}
+
+impl Rule {
+    pub fn check_word(&self, word: &String) -> bool {
+        match self.condition {
+            Cond::Plus => self.is_present(word),
+            Cond::Minus => self.is_absent(word),
+            Cond::Equals => self.is_inner(word),
+            Cond::Asterisk => self.is_outer(word),
+        }
+    }
+
+    fn is_present(&self, word: &String) -> bool {
+        match &self.position {
+            None => word.contains(self.letter),
+            Some(_) => position_symbol(word, &self.position) == self.letter,
+        }
+    }
+
+    fn is_absent(&self, word: &String) -> bool {
+        !match &self.position {
+            None => word.contains(self.letter),
+            Some(_) => position_symbol(word, &self.position) == self.letter,
+        }
+    }
+
+    fn is_inner(&self, word: &String) -> bool {
+        // буква должно быть на указанном месте
+        position_symbol(word, &self.position) == self.letter
+            // и буквы не должно быть где-то в другом месте
+            && !word_without_position(word, &self.position).contains(self.letter)
+    }
+
+    fn is_outer(&self, word: &String) -> bool {
+        // буквы не должно быть на указанном месте
+        position_symbol(word, &self.position) != self.letter
+            // и буква должна быть где-то в другом месте
+            && word_without_position(word, &self.position).contains(self.letter)
+    }
 }
 
 impl FromStr for Rule {
@@ -75,4 +114,20 @@ impl FromStr for Rule {
             position,
         })
     }
+}
+
+fn position_symbol(word: &String, position: &Option<usize>) -> char {
+    let index = position.unwrap() - 1;
+
+    word.chars().nth(index).unwrap()
+}
+
+fn word_without_position(word: &String, position: &Option<usize>) -> String {
+    let index = position.unwrap() - 1;
+
+    word.chars()
+        .enumerate()
+        .filter(|(i, _)| *i != index)
+        .map(|(_, c)| c)
+        .collect()
 }
