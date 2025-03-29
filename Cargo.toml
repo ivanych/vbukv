@@ -1,6 +1,6 @@
 [package]
 name = "vbukv"
-version = "0.1.8"
+version = "0.1.9"
 description = "Угадывалка слов по буквам"
 authors = ["Mikhail Ivanov <m.ivanych@gmail.com>"]
 
@@ -14,4 +14,3 @@ path = "src/main.rs"
 clap = { version = "4.5.26", features = ["derive"] }
 fancy-regex = "0.14.0"
 clap-markdown = "0.1.4"
-
