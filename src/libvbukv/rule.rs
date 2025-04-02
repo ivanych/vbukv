@@ -77,45 +77,6 @@ impl Rule {
     }
 }
 
-impl Rule {
-    pub fn check_word(&self, word: &String) -> bool {
-        match self.condition {
-            Cond::Plus => self.is_present(word),
-            Cond::Minus => self.is_absent(word),
-            Cond::Equals => self.is_inner(word),
-            Cond::Asterisk => self.is_outer(word),
-        }
-    }
-
-    fn is_present(&self, word: &String) -> bool {
-        match &self.position {
-            None => word.contains(self.letter),
-            Some(_) => position_symbol(word, &self.position) == self.letter,
-        }
-    }
-
-    fn is_absent(&self, word: &String) -> bool {
-        !match &self.position {
-            None => word.contains(self.letter),
-            Some(_) => position_symbol(word, &self.position) == self.letter,
-        }
-    }
-
-    fn is_inner(&self, word: &String) -> bool {
-        // буква должно быть на указанном месте
-        position_symbol(word, &self.position) == self.letter
-            // и буквы не должно быть где-то в другом месте
-            && !word_without_position(word, &self.position).contains(self.letter)
-    }
-
-    fn is_outer(&self, word: &String) -> bool {
-        // буквы не должно быть на указанном месте
-        position_symbol(word, &self.position) != self.letter
-            // и буква должна быть где-то в другом месте
-            && word_without_position(word, &self.position).contains(self.letter)
-    }
-}
-
 impl FromStr for Rule {
     type Err = String;
 
