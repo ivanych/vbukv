@@ -31,7 +31,7 @@ impl FromStr for Cond {
 pub struct Rule {
     letter: char,
     condition: Cond,
-    position: Option<usize>,
+    pub position: Option<usize>,
 }
 
 impl Rule {
@@ -82,6 +82,8 @@ impl FromStr for Rule {
         // применяется заглядывание вперёд (?=), а для него нужен крейт fancy_regex,
         // обычный regex не подходит.
         let re = Regex::new(r"^(\w)([+\-]|[=*](?=\d))?(\d*)$").unwrap();
+
+        // Если позиция указана, то она не должна быть больше длины
 
         // TODO Непонятно, как воспроизвести ошибку, которая может тут возникнуть.
         // Вроде сравнение с регуляркой должно работать всегда, успешного захвата может и не быть,

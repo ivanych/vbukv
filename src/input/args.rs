@@ -1,4 +1,5 @@
-use clap::Parser;
+use clap::error::ErrorKind;
+use clap::{CommandFactory, Parser};
 use clap_markdown;
 use std::path::PathBuf;
 use std::process::exit;
@@ -92,6 +93,24 @@ pub struct Args {
 // потому что непонятно как мокнуть Args::parse().
 pub fn argsparse() -> Args {
     let args = Args::parse();
+
+    // Если в правиле задана позиция, то она должна быть не больше длины
+    // искомого слова
+    for rule in args.rules.iter() {
+        if rule.position.is_some_and(|x| x > args.length) {
+            let position = rule.position.unwrap();
+            let mut cmd = Args::command();
+            cmd.error(
+                ErrorKind::ValueValidation,
+                format!(
+                    "Position in rule ({}) должна быть меньше, \
+                    чем --length ({})",
+                    position, args.length,
+                ),
+            )
+            .exit()
+        }
+    }
 
     if args.markdown_help {
         clap_markdown::print_help_markdown::<Args>();
