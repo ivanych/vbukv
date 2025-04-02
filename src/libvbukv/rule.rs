@@ -1,3 +1,26 @@
+//! Правило поиска
+//!
+//! # SYNOPSIS
+//!
+//! ```
+//! use std::str::FromStr;
+//! use vbukv::libvbukv::rule::{Rule, Cond};
+//!
+//! let rule_text = "a-";
+//!
+//! let rule = Rule::from_str(&rule_text).unwrap();
+//!
+//! assert_eq!(rule.letter, 'a');
+//! assert!(match rule.condition {
+//!     Cond::Minus => true,
+//!     _ => false,
+//! });
+//! assert_eq!(rule.position, None);
+//! ```
+//!
+//! # DESCRIPTION
+//!
+
 #[cfg(test)]
 mod tests;
 
