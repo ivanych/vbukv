@@ -6,20 +6,22 @@
 //! use std::str::FromStr;
 //! use vbukv::libvbukv::rule::{Rule, Cond};
 //!
-//! let rule_text = "a-";
+//! // Текстовая запись правило "в слове есть буква а"
+//! let rule_str = "а+";
 //!
-//! let rule = Rule::from_str(&rule_text).unwrap();
+//! let rule = Rule::from_str(&rule_str).unwrap();
 //!
-//! assert_eq!(rule.letter, 'a');
-//! assert!(match rule.condition {
-//!     Cond::Minus => true,
-//!     _ => false,
-//! });
-//! assert_eq!(rule.position, None);
+//! assert!(rule.check_word(&"раст".to_string()));
+//! assert!(!rule.check_word(&"питон".to_string()));
 //! ```
 //!
 //! # DESCRIPTION
 //!
+//! Модуль rule предоставляет методы для создания правил поиска слов, а также
+//! методы для проверки слов на соответствие этим правилам.
+//!
+//! Каждое правило представляет собой некоторое утверждение о наличии или
+//! отсутствии какой-либо буквы в искомом слове.
 
 #[cfg(test)]
 mod tests;
