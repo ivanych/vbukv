@@ -6,7 +6,7 @@ use std::str::FromStr;
 use fancy_regex::Regex;
 
 #[derive(Debug, Clone)]
-enum Cond {
+pub enum Cond {
     Plus,
     Minus,
     Equals,
@@ -29,8 +29,8 @@ impl FromStr for Cond {
 
 #[derive(Debug, Clone)]
 pub struct Rule {
-    letter: char,
-    condition: Cond,
+    pub letter: char,
+    pub condition: Cond,
     pub position: Option<usize>,
 }
 
