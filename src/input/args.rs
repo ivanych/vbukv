@@ -60,6 +60,9 @@ pub struct Args {
     ///
     /// Позиция обязательно должна быть указана для условий `=` и `*`.
     ///
+    /// Если позиция указана, то она должна иметь значение в диапазоне от 1
+    /// до длины искомого слова, заданной опцией `--length`.
+    ///
     /// Примеры правил:
     ///
     /// `а` — в слове есть буква `а`
@@ -94,18 +97,20 @@ pub struct Args {
 pub fn argsparse() -> Args {
     let args = Args::parse();
 
-    // Если в правиле задана позиция, то она должна быть не больше длины
-    // искомого слова
+    // Если в правиле задана позиция, то она должна быть
+    // - больше нуля
+    // - меньше длины искомого слова
     for rule in args.rules.iter() {
-        if rule.position.is_some_and(|x| x > args.length) {
-            let position = rule.position.unwrap();
+        if rule.position.is_some_and(|x| (x <= 0) || (x > args.length)) {
             let mut cmd = Args::command();
             cmd.error(
                 ErrorKind::ValueValidation,
                 format!(
-                    "Position in rule ({}) должна быть меньше, \
-                    чем --length ({})",
-                    position, args.length,
+                    "position in rule '{}' ({}) выходит за пределы допустимого \
+                    диапазона (1-{})",
+                    rule,
+                    rule.position.unwrap(),
+                    args.length,
                 ),
             )
             .exit()
