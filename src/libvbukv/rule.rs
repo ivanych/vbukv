@@ -4,7 +4,7 @@
 //!
 //! ```
 //! use std::str::FromStr;
-//! use vbukv::libvbukv::rule::{Rule, Cond};
+//! use vbukv::libvbukv::rule::Rule;
 //!
 //! // Текстовая запись правило "в слове есть буква а"
 //! let rule_str = "а+";
@@ -58,12 +58,35 @@ impl FromStr for Cond {
 /// утверждения о наличии или отсутствии в этом слове какой-либо буквы.
 #[derive(Debug, Clone)]
 pub struct Rule {
+    /// Буква.
     pub letter: char,
+    /// Требование к букве.
     pub condition: Cond,
+    /// Позиция буквы в слове.
     pub position: Option<usize>,
 }
 
 impl Rule {
+    /// Проверить слово на соответствие правилу.
+    ///
+    /// ```
+    /// use std::str::FromStr;
+    /// use vbukv::libvbukv::rule::Rule;
+    ///
+    /// // Проверяемое слово
+    /// let word = "раст".to_string();
+    ///
+    /// // Текстовая запись правила "в слове есть буква а"
+    /// let rule_str = "а+";
+    ///
+    /// // Создать правило
+    /// let rule = Rule::from_str(&rule_str).unwrap();
+    ///
+    /// // Проверка: слово должно соответствовать правилу
+    /// assert!(rule.check_word(&word));
+    /// ```
+    ///
+    /// Метод проверяет слово на соответствие правилу.
     pub fn check_word(&self, word: &String) -> bool {
         match self.condition {
             Cond::Plus => self.is_present(word),
