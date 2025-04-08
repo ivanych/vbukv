@@ -1,10 +1,14 @@
+#![warn(missing_docs)]
+#![doc = include_str!("../README.md")]
+
 use vbukv::input;
 use vbukv::libvbukv;
 use vbukv::output;
 
+#[doc(hidden)]
 fn main() {
     // Прочитать аргументы командной строки
-    let args = input::args::argsparse();
+    let args = input::args::parse();
 
     // Найти предположения
     let assumptions = libvbukv::assumptions(&args.file, args.length, &args.rules);
