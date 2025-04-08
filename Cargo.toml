@@ -6,6 +6,10 @@ authors = ["Mikhail Ivanov <m.ivanych@gmail.com>"]
 
 edition = "2021"
 
+[[bin]]
+name = "vbukv-cli"
+path = "src/main.rs"
+
 [dependencies]
 clap = { version = "4.5.26", features = ["derive"] }
 fancy-regex = "0.14.0"
