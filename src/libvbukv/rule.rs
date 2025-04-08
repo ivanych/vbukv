@@ -30,11 +30,18 @@ use std::str::FromStr;
 
 use fancy_regex::Regex;
 
+/// Требование к букве.
+///
+/// Перечисление Cond содержит названия всех возможных требований к букве.
 #[derive(Debug, Clone)]
 pub enum Cond {
+    /// Буква есть в слове.
     Plus,
+    /// Буквы нет в слове.
     Minus,
+    /// Буква есть только на указанной позиции и нигде больше.
     Equals,
+    /// Буква есть на любой позиции, кроме указанной.
     Asterisk,
 }
 
@@ -132,7 +139,7 @@ impl FromStr for Rule {
     ///
     /// ```
     /// use std::str::FromStr;
-    /// use vbukv::libvbukv::rule::Rule;
+    /// use vbukv::libvbukv::rule::{Cond, Rule};
     ///
     /// // Текстовая запись правила "в слове нет буквы а"
     /// let rule_str = "a-";
@@ -140,8 +147,17 @@ impl FromStr for Rule {
     /// // Создать правило
     /// let rule = Rule::from_str(&rule_str).unwrap();
     ///
-    /// // Проверка: в правиле должна быть буква "а"
+    /// // Проверка: правило содержит букву "а"
     /// assert_eq!(rule.letter, 'a');
+    ///
+    /// // Проверка: правило содержит требование "Minus"
+    /// assert!(match rule.condition {
+    ///    Cond::Minus => true,
+    ///    _ => false,
+    /// });
+    ///
+    /// // Проверка: правило не содержит позицию
+    /// assert_eq!(rule.position, None);
     /// ```
     ///
     /// Аргументы:
