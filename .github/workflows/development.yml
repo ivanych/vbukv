@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vbukv-${{ github.ref_name }}-x86_64-linux
-          path: target/release/vbukv
+          path: target/release/vbukv-cli

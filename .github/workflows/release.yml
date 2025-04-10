@@ -28,10 +28,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vbukv-${{ github.ref_name }}-x86_64-linux
-          path: target/release/vbukv
+          path: target/release/vbukv-cli
 
       - name: Rename
-        run: mv target/release/vbukv target/release/vbukv-${{ github.ref_name }}-x86_64-linux
+        run: mv target/release/vbukv-cli target/release/vbukv-${{ github.ref_name }}-x86_64-linux
 
       - name: Release
         uses: "marvinpinto/action-automatic-releases@v1.2.1"
