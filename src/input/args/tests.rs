@@ -12,12 +12,10 @@ fn test_parse_from_normal() {
 
 // TODO тут нужен тест parse_from с опцией --markdown-help,
 // но для этого нужен мок функции exit в parse_from
-<<<<<<< HEAD
+
 #[test]
 fn test_validate_rule_position() {
     let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+6"]);
 
     args.validate_rule_position();
 }
-=======
->>>>>>> b675c884be70ec65ea4a30d2c05911d078e9911f
