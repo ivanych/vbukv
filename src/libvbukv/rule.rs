@@ -60,6 +60,7 @@ impl FromStr for Cond {
     }
 }
 
+<<<<<<< HEAD
 impl fmt::Display for Cond {
     // This trait requires `fmt` with this exact signature.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -74,6 +75,8 @@ impl fmt::Display for Cond {
     }
 }
 
+=======
+>>>>>>> b675c884be70ec65ea4a30d2c05911d078e9911f
 /// Правило поиска.
 ///
 /// Структура Rule описывает "правило поиска" — описание искомого слова в виде
