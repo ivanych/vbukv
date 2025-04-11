@@ -26,6 +26,7 @@
 #[cfg(test)]
 mod tests;
 
+use std::fmt;
 use std::str::FromStr;
 
 use fancy_regex::Regex;
@@ -56,6 +57,20 @@ impl FromStr for Cond {
             "*" => Ok(Cond::Asterisk),
             _ => Err(()),
         }
+    }
+}
+
+impl fmt::Display for Cond {
+    // This trait requires `fmt` with this exact signature.
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let s = match self {
+            Cond::Plus => "+",
+            Cond::Minus => "-",
+            Cond::Equals => "=",
+            Cond::Asterisk => "*",
+        };
+
+        write!(f, "{}", s)
     }
 }
 
@@ -252,6 +267,22 @@ impl FromStr for Rule {
             condition,
             position,
         })
+    }
+}
+
+impl fmt::Display for Rule {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // TODO Разобраться
+        // Почему-то не получается сделать коротко через map_or:
+        // let p = self.position.map_or("", |p| {&p.to_string()});
+        // компилятор ругается на какое-то создаваемое временное значение.
+        // Пришлось сделать длинно через match
+        let p = match self.position {
+            None => "",
+            Some(x) => &x.to_string(),
+        };
+
+        write!(f, "{}{}{}", self.letter, self.condition, p,)
     }
 }
 
