@@ -168,6 +168,16 @@ impl Args {
 
         Ok(())
     }
+
+    fn validate(&self) {
+        let result = self.validate_rule_position();
+
+        if result.is_err() {
+            Args::command()
+                .error(ErrorKind::ValueValidation, result.unwrap_err())
+                .exit()
+        }
+    }
 }
 
 // TODO Надо разобраться: эту функцию пока не получается покрыть тестами,
@@ -215,13 +225,7 @@ impl Args {
 pub fn parse() -> Args {
     let args = Args::parse();
 
-    let result = args.validate_rule_position();
-
-    if result.is_err() {
-        let mut cmd = Args::command();
-        cmd.error(ErrorKind::ValueValidation, result.unwrap_err())
-            .exit()
-    }
+    args.validate();
 
     markdown_help(&args);
 
@@ -283,6 +287,8 @@ where
     T: Into<OsString> + Clone,
 {
     let args = Args::parse_from(itr);
+
+    args.validate();
 
     markdown_help(&args);
 
