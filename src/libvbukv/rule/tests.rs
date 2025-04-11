@@ -176,3 +176,12 @@ fn test_word_without_position() {
 
     assert_eq!(word, "паса".to_string());
 }
+
+#[test]
+fn rule_test_fmt() {
+    let rule_text = "a-";
+
+    let rule = Rule::from_str(&rule_text).unwrap();
+
+    assert_eq!(format!("{rule}"), rule_text);
+}
