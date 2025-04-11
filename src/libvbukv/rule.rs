@@ -271,15 +271,18 @@ impl FromStr for Rule {
 }
 
 impl fmt::Display for Rule {
-    // This trait requires `fmt` with this exact signature.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "{}{}{}",
-            self.letter,
-            self.condition,
-            self.position.unwrap()
-        )
+        // TODO Разобраться
+        // Почему-то не получается сделать коротко через map_or:
+        // let p = self.position.map_or("", |p| {&p.to_string()});
+        // компилятор ругается на какое-то создаваемое временное значение.
+        // Пришлось сделать длинно через match
+        let p = match self.position {
+            None => "",
+            Some(x) => &x.to_string(),
+        };
+
+        write!(f, "{}{}{}", self.letter, self.condition, p,)
     }
 }
 
