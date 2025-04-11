@@ -14,8 +14,17 @@ fn test_parse_from_normal() {
 // но для этого нужен мок функции exit в parse_from
 
 #[test]
-fn test_validate_rule_position() {
-    let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+6"]);
+fn test_validate_rule_position() -> Result<(), String> {
+    let args = parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+5"]);
 
-    args.validate_rule_position();
+    Ok(args.validate_rule_position()?)
+}
+
+#[test]
+fn test_fail_validate_rule_position() -> Result<(), String> {
+    let args = parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+6"]);
+
+    assert!(args.validate_rule_position().is_err());
+
+    Ok(())
 }

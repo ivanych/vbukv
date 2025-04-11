@@ -140,13 +140,20 @@ impl Args {
     // Если в правиле задана позиция, то она должна быть
     // - больше нуля
     // - меньше длины искомого слова (length)
-    fn validate_rule_position(&self) -> Option<&Rule> {
+    fn validate_rule_position(&self) -> Result<(), String> {
         for rule in self.rules.iter() {
             if rule.position.is_some_and(|x| (x <= 0) || (x > self.length)) {
-                return Some(rule);
+                return Err(format!(
+                    "position in rule '{}' ({}) выходит за пределы допустимого \
+                    диапазона (1-{})",
+                    rule,
+                    rule.position.unwrap(),
+                    self.length,
+                ));
             }
         }
-        None
+
+        Ok(())
     }
 }
 
@@ -181,22 +188,12 @@ impl Args {
 pub fn parse() -> Args {
     let args = Args::parse();
 
-    let rule = args.validate_rule_position();
+    let result = args.validate_rule_position();
 
-    if rule.is_some() {
-        let rule = rule.unwrap();
+    if result.is_err() {
         let mut cmd = Args::command();
-        cmd.error(
-            ErrorKind::ValueValidation,
-            format!(
-                "position in rule '{}' ({}) выходит за пределы допустимого \
-                    диапазона (1-{})",
-                rule,
-                rule.position.unwrap(),
-                args.length,
-            ),
-        )
-        .exit()
+        cmd.error(ErrorKind::ValueValidation, result.unwrap_err())
+            .exit()
     }
 
     markdown_help(&args);
