@@ -1,7 +1,7 @@
 use super::*;
 
 #[test]
-fn test_parse_from_normal() {
+fn test_parse_from() {
     let args = parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+"]);
 
     assert_eq!(args.length, 5);
@@ -15,14 +15,23 @@ fn test_parse_from_normal() {
 
 #[test]
 fn test_validate_rule_position() -> Result<(), String> {
-    let args = parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+5"]);
+    let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+5"]);
 
     Ok(args.validate_rule_position()?)
 }
 
 #[test]
 fn test_fail_validate_rule_position() -> Result<(), String> {
-    let args = parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+6"]);
+    let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+0"]);
+
+    assert!(args.validate_rule_position().is_err());
+
+    Ok(())
+}
+
+#[test]
+fn test_fail2_validate_rule_position() -> Result<(), String> {
+    let args = Args::parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+6"]);
 
     assert!(args.validate_rule_position().is_err());
 
