@@ -2,7 +2,7 @@ use super::*;
 
 #[test]
 fn test_parse_from() {
-    let args = parse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+"]);
+    let args = Args::argparse_from(["vbukv,", "-l", "5", "-f", "test_slovar.txt", "c+"]);
 
     assert_eq!(args.length, 5);
     assert_eq!(args.file.into_os_string(), "test_slovar.txt");
