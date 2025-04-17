@@ -197,7 +197,7 @@ impl Args {
 
         args.validate();
 
-        markdown_help(&args);
+        args.markdown_help();
 
         args
     }
@@ -260,7 +260,7 @@ impl Args {
 
         args.validate();
 
-        markdown_help(&args);
+        args.markdown_help();
 
         args
     }
@@ -293,13 +293,13 @@ impl Args {
                 .exit()
         }
     }
-}
 
-// TODO Надо разобраться: эту функцию пока не получается покрыть тестами,
-// потому что непонятно, как мокнуть exit().
-fn markdown_help(args: &Args) {
-    if args.markdown_help {
-        clap_markdown::print_help_markdown::<Args>();
-        exit(0);
+    // TODO Надо разобраться: эту функцию пока не получается покрыть тестами,
+    // потому что непонятно, как мокнуть exit().
+    fn markdown_help(&self) {
+        if self.markdown_help {
+            clap_markdown::print_help_markdown::<Args>();
+            exit(0);
+        }
     }
 }
