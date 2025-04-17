@@ -23,56 +23,14 @@
 //! Каждое правило представляет собой некоторое утверждение о наличии или
 //! отсутствии какой-либо буквы в искомом слове.
 
+mod cond;
 #[cfg(test)]
 mod tests;
 
+pub use cond::Cond;
+use fancy_regex::Regex;
 use std::fmt;
 use std::str::FromStr;
-
-use fancy_regex::Regex;
-
-/// Требование к букве.
-///
-/// Перечисление Cond содержит названия всех возможных требований к букве.
-#[derive(Debug, Clone)]
-pub enum Cond {
-    /// Буква есть в слове.
-    Plus,
-    /// Буквы нет в слове.
-    Minus,
-    /// Буква есть только на указанной позиции и нигде больше.
-    Equals,
-    /// Буква есть на любой позиции, кроме указанной.
-    Asterisk,
-}
-
-impl FromStr for Cond {
-    type Err = ();
-
-    fn from_str(s: &str) -> Result<Cond, Self::Err> {
-        match s {
-            "+" => Ok(Cond::Plus),
-            "-" => Ok(Cond::Minus),
-            "=" => Ok(Cond::Equals),
-            "*" => Ok(Cond::Asterisk),
-            _ => Err(()),
-        }
-    }
-}
-
-impl fmt::Display for Cond {
-    // This trait requires `fmt` with this exact signature.
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let s = match self {
-            Cond::Plus => "+",
-            Cond::Minus => "-",
-            Cond::Equals => "=",
-            Cond::Asterisk => "*",
-        };
-
-        write!(f, "{}", s)
-    }
-}
 
 /// Правило поиска.
 ///
