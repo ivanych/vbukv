@@ -7,13 +7,13 @@ use std::str::FromStr;
 #[derive(Debug, Clone)]
 pub enum Cond {
     /// Буква есть в слове.
-    Plus,
+    Plus(Option<usize>),
     /// Буквы нет в слове.
-    Minus,
+    Minus(Option<usize>),
     /// Буква есть только на указанной позиции и нигде больше.
-    Equals,
+    Equals(usize),
     /// Буква есть на любой позиции, кроме указанной.
-    Asterisk,
+    Asterisk(usize),
 }
 
 impl FromStr for Cond {
@@ -21,10 +21,10 @@ impl FromStr for Cond {
 
     fn from_str(s: &str) -> Result<Cond, Self::Err> {
         match s {
-            "+" => Ok(Cond::Plus),
-            "-" => Ok(Cond::Minus),
-            "=" => Ok(Cond::Equals),
-            "*" => Ok(Cond::Asterisk),
+            "+" => Ok(Cond::Plus(None)),
+            "-" => Ok(Cond::Minus(None)),
+            "=" => Ok(Cond::Equals(1)),
+            "*" => Ok(Cond::Asterisk(1)),
             _ => Err(()),
         }
     }
@@ -34,10 +34,10 @@ impl fmt::Display for Cond {
     // This trait requires `fmt` with this exact signature.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let s = match self {
-            Cond::Plus => "+",
-            Cond::Minus => "-",
-            Cond::Equals => "=",
-            Cond::Asterisk => "*",
+            Cond::Plus(p) => format!("+{}", p.unwrap_or(0)),
+            Cond::Minus(p) => format!("-{}", p.unwrap_or(0)),
+            Cond::Equals(p) => format!("={}", p),
+            Cond::Asterisk(p) => format!("*{}", p),
         };
 
         write!(f, "{}", s)

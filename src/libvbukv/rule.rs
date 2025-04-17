@@ -32,6 +32,8 @@ use fancy_regex::Regex;
 use std::fmt;
 use std::str::FromStr;
 
+
+
 /// Правило поиска.
 ///
 /// Структура Rule описывает "правило поиска" — описание искомого слова в виде
@@ -42,9 +44,8 @@ pub struct Rule {
     pub letter: char,
     /// Требование к букве.
     pub condition: Cond,
-    /// Позиция буквы в слове.
-    pub position: Option<usize>,
 }
+
 
 impl Rule {
     /// Проверить слово на соответствие правилу.
@@ -209,6 +210,8 @@ impl FromStr for Rule {
 
         let letter = caps.get(1).unwrap().as_str().chars().next().unwrap();
 
+        let position = caps[3].parse::<usize>().ok();
+        
         // Тут сложность в том, что если в правиле не указано условие,
         // то вторая группа в захвате будет пустой (None).
         // Пустой групе нельзя сделать unwrap, но и unwrap_or('+') тоже нельзя сделать,
@@ -216,15 +219,32 @@ impl FromStr for Rule {
         // Для возврата одного типа — char — нужен map_or.
         let condition = caps
             .get(2)
-            .map_or(Cond::Plus, |m| Cond::from_str(m.as_str()).unwrap());
+            .map_or(Cond::Plus(position), |m| Cond::from_str(m.as_str()).unwrap());
 
-        let position = caps[3].parse::<usize>().ok();
+        //let position = caps[3].parse::<usize>().ok();
 
-        Ok(Rule {
-            letter,
-            condition,
-            position,
-        })
+        match condition {
+            Cond::Plus => Ok(Rule {
+                letter,
+                req: Req::OR(OptReq {
+                    condition,
+                    position,
+                }),
+            }),
+            Cond::Minus => Ok(Rule {
+                letter,
+                req: Req::OR(OptReq {
+                    condition,
+                    position,
+                }),
+            }),
+        }
+
+        //Ok(Rule {
+        //    letter,
+        //    condition,
+        //    position,
+        //})
     }
 }
 
