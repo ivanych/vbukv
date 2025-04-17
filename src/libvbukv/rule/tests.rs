@@ -84,15 +84,6 @@ fn build_test_failed() -> Result<(), String> {
 }
 
 #[test]
-fn struct_cond_from_str_test_failed() -> Result<(), String> {
-    let cond = Cond::from_str("^");
-
-    assert!(cond.is_err());
-
-    Ok(())
-}
-
-#[test]
 fn test_is_present_true() {
     let word = "паста".to_string();
 

@@ -33,10 +33,15 @@ jobs:
       - name: Rename
         run: mv target/release/vbukv-cli target/release/vbukv-${{ github.ref_name }}-x86_64-linux
 
-      - name: Release
-        uses: "marvinpinto/action-automatic-releases@v1.2.1"
+      - name: Build Changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: mikepenz/action-gh-release@v1
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
+          body: ${{steps.build_changelog.outputs.changelog}}
           files: |
             target/release/vbukv-${{ github.ref_name }}-x86_64-linux
